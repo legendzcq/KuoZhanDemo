@@ -32,6 +32,8 @@ export default class SHowView extends Component {
          }
 
 
+
+
         return (
         <View style={tempStyle.ViewType}>
           <Text style={tempStyle.TitleTextType}>{this.props.nodeM.title}</Text>
