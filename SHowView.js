@@ -37,7 +37,7 @@ export default class SHowView extends Component {
 http://blog.csdn.net/u013224660/article/details/51163067     propTypes = {   http://www.jianshu.com/p/d4b7f8f322b6
     http://guotaiyaxing.cn.segmentfault.com/q/1010000009182684
 
-
+城市的发送到
         return (
         <View style={tempStyle.ViewType}>
           <Text style={tempStyle.TitleTextType}>{this.props.nodeM.title}</Text>
