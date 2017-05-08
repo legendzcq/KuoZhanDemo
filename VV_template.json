@@ -3,7 +3,7 @@
 	"node" : [
 		{
 			"title": "标题", "class": "itemTitle",
-			"input": "edit", "class": "itemEdit", "placeholder": "请输入标题",
+			"input": "edit", "class": "text", "placeholder": "请输入标题",
 			"restriction": [
 				{"type": "text"},
 				{"use": "required"},
@@ -12,7 +12,7 @@
 		},
 		{
 			"title": "账号", "class": "itemTitle",
-			"input": "edit", "class": "itemEdit", "placeholder": "请输入邮箱地址",
+			"input": "edit", "class": "email", "placeholder": "请输入邮箱地址",
 			"restriction": [
 				{"type": "email"},
 				{"use": "required"},
@@ -21,7 +21,7 @@
 		},
 		{
 			"title": "密码", "class": "itemTitle",
-			"input": "edit", "class": "itemEdit", "placeholder": "请输入邮箱密码",
+			"input": "edit", "class": "password", "placeholder": "请输入邮箱密码",
 			"restriction": [
 				{"type": "password"},
 				{"use": "required"},
@@ -30,7 +30,7 @@
 		},
 		{
 			"title": "网址", "class": "itemTitle",
-			"input": "edit", "class": "itemEdit", "placeholder": "请输入访问该邮箱的网址",
+			"input": "edit", "class": "url", "placeholder": "请输入访问该邮箱的网址",
 			"restriction": [
 				{"type": "url"},
 				{"use": "optional"}
@@ -38,7 +38,7 @@
 		},
 		{
 			"title": "绑定手机", "class": "itemTitle",
-			"input": "edit", "class": "itemEdit", "placeholder": "请输入该邮箱绑定的手机号码",
+			"input": "edit", "class": "tel", "placeholder": "请输入该邮箱绑定的手机号码",
 			"restriction": [
 				{"type": "tel"},
 				{"use": "optional"}
@@ -46,7 +46,7 @@
 		},
 		{
 			"title": "描述", "class": "itemTitle",
-			"input": "edit", "class": "itemEdit", "placeholder": "请输入关于该邮箱绑定的描述",
+			"input": "edit", "class": "text", "placeholder": "请输入关于该邮箱绑定的描述",
 			"restriction": [
 				{"type": "text"},
 				{"use": "optional"}

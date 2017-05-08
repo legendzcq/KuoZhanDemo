@@ -109,9 +109,10 @@ export default class KuoZhanDemo extends Component {
   }
     renderItem(item,index) {
       var RecviceNode:RecviceNodeModel = item;
+
       console.log(index);
     return (
-           <ShowView key={index} nodeM ={RecviceNode} {...this.props}/>
+           <ShowView key={index} nodeM ={RecviceNode} ref={RecviceNode.class} {...this.props}/>
        );
   }
 
@@ -132,6 +133,22 @@ export default class KuoZhanDemo extends Component {
 
        this.renderList();
   }
+  SaveList(){
+    // for(let index=0 ; index < this.state.ALLRecviceData.node.length;index++)
+    // {
+      // alert(this.refs[this.state.ALLRecviceData.node[index].class]);
+        //  console.log(this.state.ALLRecviceData.node[index].class);
+      //  alert(this.state.ALLRecviceData.node[0].class);
+        var input = this.refs[this.state.ALLRecviceData.node[0].class];
+         
+        var tempinput = input.refs[this.state.ALLRecviceData.node[0].class];
+        var inputValueres = tempinput.value;
+        alert(inputValueres);
+        // var inputRect = input.getBoundingClientRect();
+
+        
+    // }
+  }
 
   render(){
     return <View style={{flex:1,marginTop:20}}>
@@ -139,6 +156,12 @@ export default class KuoZhanDemo extends Component {
       <Button
   onPress={() => {this.AddRenderList();}}
   title="添加元素点击"
+  color="#841584"
+  accessibilityLabel="Learn more about this purple button"
+/> 
+      <Button
+  onPress={() => {this.SaveList();}}
+  title="提交元素"
   color="#841584"
   accessibilityLabel="Learn more about this purple button"
 /> 

@@ -14,6 +14,9 @@ export default class SHowView extends Component {
    constructor(props)
    {
      super(props);
+     this.state={
+      ResValue:''
+     }
    }
     render() {
         
@@ -38,10 +41,14 @@ export default class SHowView extends Component {
         <View style={tempStyle.ViewType}>
           <Text style={tempStyle.TitleTextType}>{this.props.nodeM.title}</Text>
           <View style={{flexDirection:'row'}}> 
-          <TextInput  style={[tempStyle.textinputtype,{backgroundColor:'red'}]}
+          <TextInput  {...this.props} 
+                      style={[tempStyle.textinputtype,{backgroundColor:'red'}]}
                       placeholder={this.props.nodeM.placeholder}
                       autoCapitalize="none"
                       autoCorrect={false}
+                      onChangeText={(text) => {this.setState({ResValue:text});}}
+                      value={this.state.ResValue}
+                      ref={this.props.nodeM.class}
                       />
            <Text >0/14 </Text>
          </View>
