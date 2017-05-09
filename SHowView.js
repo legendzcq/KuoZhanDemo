@@ -34,12 +34,7 @@ export default class SHowView extends Component {
          {
              tempStyle = ShowViewStyleBig;
          }
-    
 
-// http://blog.csdn.net/u013224660/article/details/51163067     propTypes = {   http://www.jianshu.com/p/d4b7f8f322b6
-//     http://guotaiyaxing.cn.segmentfault.com/q/1010000009182684
-
-// 城市的发送到  (text) => {this.setState({ResValue:text});}
         return (
         <View style={tempStyle.ViewType}>
           <Text style={tempStyle.TitleTextType}>{this.props.nodeM.title}</Text>
@@ -51,16 +46,16 @@ export default class SHowView extends Component {
                       autoCorrect={false}
                       onChangeText={(text)=>{
               
-                      this.checkValueFunc(text);
+                      
                        var len=text.replace(/[^\x00-\xff]/g, "**").length; //正则判断输入字符串的长度
                        if(len>14)
                       {
                           return;
                       }
-
                           this.setState({ResValueNum:`${len}/${allNum}`,ResValue:text});
-
+                          this.GetResValueCallBackFunc(text,this.props.nodeM.class);
                       } }
+                     
                       value={this.state.ResValue}
                       ref={this.props.nodeM.class}
                       />
@@ -72,9 +67,16 @@ export default class SHowView extends Component {
           </View>
         );
     }
+    //回调函数 1：返回值  2：calssID  3：正则pi
+    GetResValueCallBackFunc(text,ClassType)
+    {
+        if(this.props.GetResValueCallBackFunc == null) return;
+        this.props.GetResValueCallBackFunc(text,ClassType);
+    }
     // 对输入值进行正则判断
     checkValueFunc(text)
     {
+ 
 
 
          if(this.props.nodeM.restriction.patternM.length < 1)
@@ -96,8 +98,6 @@ export default class SHowView extends Component {
              console.log( patternM[index].error_message);
          }
       }
-
-
 
       return true;
       

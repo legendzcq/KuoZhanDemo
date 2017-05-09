@@ -52,6 +52,7 @@ export default class KuoZhanDemo extends Component {
      super(props);
       this.state={
         ALLRecviceData:RecviceDataModel=new Object(),
+        SaveValueDict:[],
       }
    }
 
@@ -113,8 +114,15 @@ export default class KuoZhanDemo extends Component {
 
       
     return (
-           <ShowView key={index} nodeM ={RecviceNode} ref={RecviceNode.class} {...this.props}/>
+           <ShowView key={index} nodeM ={RecviceNode} ref={RecviceNode.class}
+            GetResValueCallBackFunc ={(text,ClassType)=>{this.SaveTmepValue(text,ClassType)}}  {...this.props}/>
        );
+  }
+
+//保存临时值
+  SaveTmepValue(text,ClassType)
+  {
+     this.state.SaveValueDict[ClassType]=text;
   }
 
   AddRenderList(){
@@ -135,20 +143,11 @@ export default class KuoZhanDemo extends Component {
        this.renderList();
   }
   SaveList(){
-    // for(let index=0 ; index < this.state.ALLRecviceData.node.length;index++)
-    // {
-      // alert(this.refs[this.state.ALLRecviceData.node[index].class]);
-        //  console.log(this.state.ALLRecviceData.node[index].class);
-      //  alert(this.state.ALLRecviceData.node[0].class);
-        var input = this.refs[this.state.ALLRecviceData.node[0].class];
-         
-        var tempinput = input.refs[this.state.ALLRecviceData.node[0].class];
-        var inputValueres = tempinput.value;
-        alert(inputValueres);
-        // var inputRect = input.getBoundingClientRect();
+    var obj = this.state.SaveValueDict;
+for (var prop in obj) {
 
-        
-    // }
+  this.checkValueFunc(obj[prop],prop);
+}
   }
 
   render(){
@@ -168,6 +167,59 @@ export default class KuoZhanDemo extends Component {
 /> 
     </View>
   }
+
+
+    //字符串匹配正则表达式
+    checkValueFunc(text,ClassType)
+    {
+      //  this.state.ALLRecviceData.node.class == ca
+         var ALLnodeArray = this.state.ALLRecviceData.node;
+        for(let nodeindex=0;nodeindex < ALLnodeArray.length;nodeindex++)
+        {
+              if(ALLnodeArray[nodeindex].class == ClassType)
+              {
+
+
+
+         if(ALLnodeArray[nodeindex].restriction.patternM.length < 1)
+         {
+             return true;
+         }
+       var patternM:Array<patternModel> = ALLnodeArray[nodeindex].restriction.patternM ? ALLnodeArray[nodeindex].restriction.patternM :[];
+
+      for(let index=0;index < patternM.length ; index++)
+      {
+         var str = patternM[index].pattern;
+         var reg = eval(str);
+           if(text.match(reg))
+         {
+             console.log('匹配');
+         }
+         else
+         {
+             console.log( patternM[index].error_message);
+             return false;
+         }
+      }
+
+
+              }
+
+
+
+
+
+        }
+
+ 
+
+
+
+      return true;
+      
+    }
+
+
 }
 
 const styles = StyleSheet.create({
@@ -188,6 +240,9 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
 });
+
+
+
 
 
 

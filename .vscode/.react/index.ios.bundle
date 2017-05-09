@@ -1268,7 +1268,8 @@ var KuoZhanDemo = function (_Component) {
     var _this = babelHelpers.possibleConstructorReturn(this, (KuoZhanDemo.__proto__ || Object.getPrototypeOf(KuoZhanDemo)).call(this, props));
 
     _this.state = {
-      ALLRecviceData: RecviceDataModel = new Object()
+      ALLRecviceData: RecviceDataModel = new Object(),
+      SaveValueDict: []
     };
     return _this;
   }
@@ -1320,10 +1321,19 @@ var KuoZhanDemo = function (_Component) {
   }, {
     key: 'renderItem',
     value: function renderItem(item, index) {
+      var _this3 = this;
 
       var RecviceNode = item;
 
-      return _react2.default.createElement(_SHowView2.default, babelHelpers.extends({ key: index, nodeM: RecviceNode, ref: RecviceNode.class }, this.props));
+      return _react2.default.createElement(_SHowView2.default, babelHelpers.extends({ key: index, nodeM: RecviceNode, ref: RecviceNode.class,
+        GetResValueCallBackFunc: function GetResValueCallBackFunc(text, ClassType) {
+          _this3.SaveTmepValue(text, ClassType);
+        } }, this.props));
+    }
+  }, {
+    key: 'SaveTmepValue',
+    value: function SaveTmepValue(text, ClassType) {
+      this.state.SaveValueDict[ClassType] = text;
     }
   }, {
     key: 'AddRenderList',
@@ -1347,16 +1357,16 @@ var KuoZhanDemo = function (_Component) {
   }, {
     key: 'SaveList',
     value: function SaveList() {
-      var input = this.refs[this.state.ALLRecviceData.node[0].class];
+      var obj = this.state.SaveValueDict;
+      for (var prop in obj) {
 
-      var tempinput = input.refs[this.state.ALLRecviceData.node[0].class];
-      var inputValueres = tempinput.value;
-      alert(inputValueres);
+        this.checkValueFunc(obj[prop], prop);
+      }
     }
   }, {
     key: 'render',
     value: function render() {
-      var _this3 = this;
+      var _this4 = this;
 
       return _react2.default.createElement(
         _reactNative.View,
@@ -1364,7 +1374,7 @@ var KuoZhanDemo = function (_Component) {
         this.renderList(),
         _react2.default.createElement(_reactNative.Button, {
           onPress: function onPress() {
-            _this3.AddRenderList();
+            _this4.AddRenderList();
           },
           title: '\u6DFB\u52A0\u5143\u7D20\u70B9\u51FB',
           color: '#841584',
@@ -1372,13 +1382,40 @@ var KuoZhanDemo = function (_Component) {
         }),
         _react2.default.createElement(_reactNative.Button, {
           onPress: function onPress() {
-            _this3.SaveList();
+            _this4.SaveList();
           },
           title: '\u63D0\u4EA4\u5143\u7D20',
           color: '#841584',
           accessibilityLabel: 'Learn more about this purple button'
         })
       );
+    }
+  }, {
+    key: 'checkValueFunc',
+    value: function checkValueFunc(text, ClassType) {
+      var ALLnodeArray = this.state.ALLRecviceData.node;
+      for (var nodeindex = 0; nodeindex < ALLnodeArray.length; nodeindex++) {
+        if (ALLnodeArray[nodeindex].class == ClassType) {
+
+          if (ALLnodeArray[nodeindex].restriction.patternM.length < 1) {
+            return true;
+          }
+          var patternM = ALLnodeArray[nodeindex].restriction.patternM ? ALLnodeArray[nodeindex].restriction.patternM : [];
+
+          for (var index = 0; index < patternM.length; index++) {
+            var str = patternM[index].pattern;
+            var reg = eval(str);
+            if (text.match(reg)) {
+              console.log('匹配');
+            } else {
+              console.log(patternM[index].error_message);
+              return false;
+            }
+          }
+        }
+      }
+
+      return true;
     }
   }]);
   return KuoZhanDemo;
@@ -46806,7 +46843,7 @@ __d(/* KuoZhanDemo/VV_template.json */function(global, require, module, exports)
 	"node": [{
 		"title": "标题", "class": "itemTitle",
 		"input": "edit", "class": "text", "placeholder": "请输入标题",
-		"restriction": [{ "type": "text" }, { "use": "required" }, { "pattern": "/^.{4,32}$/", "error_message": "请输入4-32位字符。/" }]
+		"restriction": [{ "type": "text" }, { "use": "required" }, { "pattern": "/^.{4,32}$/", "error_message": "请输入4-32位字符." }]
 	}, {
 		"title": "账号", "class": "itemTitle",
 		"input": "edit", "class": "email", "placeholder": "请输入邮箱地址",
@@ -46825,7 +46862,7 @@ __d(/* KuoZhanDemo/VV_template.json */function(global, require, module, exports)
 		"restriction": [{ "type": "tel" }, { "use": "optional" }]
 	}, {
 		"title": "描述", "class": "itemTitle",
-		"input": "edit", "class": "text", "placeholder": "请输入关于该邮箱绑定的描述",
+		"input": "edit", "class": "miaoshu", "placeholder": "请输入关于该邮箱绑定的描述",
 		"restriction": [{ "type": "text" }, { "use": "optional" }]
 	}]
 };
@@ -46892,14 +46929,14 @@ var SHowView = function (_Component) {
                         autoCorrect: false,
                         onChangeText: function onChangeText(text) {
 
-                            _this2.checkValueFunc(text);
                             var len = text.replace(/[^\x00-\xff]/g, "**").length;
                             if (len > 14) {
                                 return;
                             }
-
                             _this2.setState({ ResValueNum: len + '/' + allNum, ResValue: text });
+                            _this2.GetResValueCallBackFunc(text, _this2.props.nodeM.class);
                         },
+
                         value: this.state.ResValue,
                         ref: this.props.nodeM.class
                     })),
@@ -46912,6 +46949,12 @@ var SHowView = function (_Component) {
                 _react2.default.createElement(_reactNative.View, { style: { marginTop: 4, marginLeft: 5, marginRight: 5,
                         height: 1, backgroundColor: '#eeeeee' } })
             );
+        }
+    }, {
+        key: 'GetResValueCallBackFunc',
+        value: function GetResValueCallBackFunc(text, ClassType) {
+            if (this.props.GetResValueCallBackFunc == null) return;
+            this.props.GetResValueCallBackFunc(text, ClassType);
         }
     }, {
         key: 'checkValueFunc',
