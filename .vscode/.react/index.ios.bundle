@@ -1320,9 +1320,10 @@ var KuoZhanDemo = function (_Component) {
   }, {
     key: 'renderItem',
     value: function renderItem(item, index) {
+
       var RecviceNode = item;
-      console.log(index);
-      return _react2.default.createElement(_SHowView2.default, babelHelpers.extends({ key: index, nodeM: RecviceNode }, this.props));
+
+      return _react2.default.createElement(_SHowView2.default, babelHelpers.extends({ key: index, nodeM: RecviceNode, ref: RecviceNode.class }, this.props));
     }
   }, {
     key: 'AddRenderList',
@@ -1344,6 +1345,15 @@ var KuoZhanDemo = function (_Component) {
       this.renderList();
     }
   }, {
+    key: 'SaveList',
+    value: function SaveList() {
+      var input = this.refs[this.state.ALLRecviceData.node[0].class];
+
+      var tempinput = input.refs[this.state.ALLRecviceData.node[0].class];
+      var inputValueres = tempinput.value;
+      alert(inputValueres);
+    }
+  }, {
     key: 'render',
     value: function render() {
       var _this3 = this;
@@ -1357,6 +1367,14 @@ var KuoZhanDemo = function (_Component) {
             _this3.AddRenderList();
           },
           title: '\u6DFB\u52A0\u5143\u7D20\u70B9\u51FB',
+          color: '#841584',
+          accessibilityLabel: 'Learn more about this purple button'
+        }),
+        _react2.default.createElement(_reactNative.Button, {
+          onPress: function onPress() {
+            _this3.SaveList();
+          },
+          title: '\u63D0\u4EA4\u5143\u7D20',
           color: '#841584',
           accessibilityLabel: 'Learn more about this purple button'
         })
@@ -46787,27 +46805,27 @@ __d(/* KuoZhanDemo/VV_template.json */function(global, require, module, exports)
 	"title": "电子邮箱", "class": "FormTitle",
 	"node": [{
 		"title": "标题", "class": "itemTitle",
-		"input": "edit", "class": "itemEdit", "placeholder": "请输入标题",
-		"restriction": [{ "type": "text" }, { "use": "required" }, { "pattern": "^.{4,32}$", "error_message": "请输入4-32位字符。" }]
+		"input": "edit", "class": "text", "placeholder": "请输入标题",
+		"restriction": [{ "type": "text" }, { "use": "required" }, { "pattern": "/^.{4,32}$/", "error_message": "请输入4-32位字符。/" }]
 	}, {
 		"title": "账号", "class": "itemTitle",
-		"input": "edit", "class": "itemEdit", "placeholder": "请输入邮箱地址",
-		"restriction": [{ "type": "email" }, { "use": "required" }, { "pattern": "^[\w\+\-]+(\.[\w\+\-]+)*@[a-z\d\-]+(\.[a-z\d\-]+)*\.([a-z]{2,6})$", "error_message": "请输入正确的邮箱地址。" }]
+		"input": "edit", "class": "email", "placeholder": "请输入邮箱地址",
+		"restriction": [{ "type": "email" }, { "use": "required" }, { "pattern": "/^[\w\+\-]+(\.[\w\+\-]+)*@[a-z\d\-]+(\.[a-z\d\-]+)*\.([a-z]{2,6})$/", "error_message": "请输入正确的邮箱地址。" }]
 	}, {
 		"title": "密码", "class": "itemTitle",
-		"input": "edit", "class": "itemEdit", "placeholder": "请输入邮箱密码",
-		"restriction": [{ "type": "password" }, { "use": "required" }, { "pattern": "^.{4,32}$", "error_message": "请输入4-32位字符。" }]
+		"input": "edit", "class": "password", "placeholder": "请输入邮箱密码",
+		"restriction": [{ "type": "password" }, { "use": "required" }, { "pattern": "/^.{4,32}$/", "error_message": "请输入4-32位字符。" }]
 	}, {
 		"title": "网址", "class": "itemTitle",
-		"input": "edit", "class": "itemEdit", "placeholder": "请输入访问该邮箱的网址",
+		"input": "edit", "class": "url", "placeholder": "请输入访问该邮箱的网址",
 		"restriction": [{ "type": "url" }, { "use": "optional" }]
 	}, {
 		"title": "绑定手机", "class": "itemTitle",
-		"input": "edit", "class": "itemEdit", "placeholder": "请输入该邮箱绑定的手机号码",
+		"input": "edit", "class": "tel", "placeholder": "请输入该邮箱绑定的手机号码",
 		"restriction": [{ "type": "tel" }, { "use": "optional" }]
 	}, {
 		"title": "描述", "class": "itemTitle",
-		"input": "edit", "class": "itemEdit", "placeholder": "请输入关于该邮箱绑定的描述",
+		"input": "edit", "class": "text", "placeholder": "请输入关于该邮箱绑定的描述",
 		"restriction": [{ "type": "text" }, { "use": "optional" }]
 	}]
 };
@@ -46822,19 +46840,29 @@ var _react2 = babelHelpers.interopRequireDefault(_react);
 
 var _reactNative = require(45            ); // 45 = react-native
 
-var _ShowViewStyleDefault = require(421                     ); // 421 = ./ShowViewStyleDefault
+var _ShowViewStyleDefault = require(419                     ); // 419 = ./ShowViewStyleDefault
+
+var allNum = 14;
 
 var SHowView = function (_Component) {
     babelHelpers.inherits(SHowView, _Component);
 
     function SHowView(props) {
         babelHelpers.classCallCheck(this, SHowView);
-        return babelHelpers.possibleConstructorReturn(this, (SHowView.__proto__ || Object.getPrototypeOf(SHowView)).call(this, props));
+
+        var _this = babelHelpers.possibleConstructorReturn(this, (SHowView.__proto__ || Object.getPrototypeOf(SHowView)).call(this, props));
+
+        _this.state = {
+            ResValue: '',
+            ResValueNum: '0/' + allNum
+        };
+        return _this;
     }
 
     babelHelpers.createClass(SHowView, [{
         key: 'render',
         value: function render() {
+            var _this2 = this;
 
             var tempStyle = void 0;
             var stylevalue = 'default';
@@ -46857,20 +46885,61 @@ var SHowView = function (_Component) {
                 _react2.default.createElement(
                     _reactNative.View,
                     { style: { flexDirection: 'row' } },
-                    _react2.default.createElement(_reactNative.TextInput, { style: [tempStyle.textinputtype, { backgroundColor: 'red' }],
+                    _react2.default.createElement(_reactNative.TextInput, babelHelpers.extends({}, this.props, {
+                        style: [tempStyle.textinputtype, { backgroundColor: 'red' }],
                         placeholder: this.props.nodeM.placeholder,
                         autoCapitalize: 'none',
-                        autoCorrect: false
-                    }),
+                        autoCorrect: false,
+                        onChangeText: function onChangeText(text) {
+
+                            _this2.checkValueFunc(text);
+                            var len = text.replace(/[^\x00-\xff]/g, "**").length;
+                            if (len > 14) {
+                                return;
+                            }
+
+                            _this2.setState({ ResValueNum: len + '/' + allNum, ResValue: text });
+                        },
+                        value: this.state.ResValue,
+                        ref: this.props.nodeM.class
+                    })),
                     _react2.default.createElement(
                         _reactNative.Text,
                         null,
-                        '0/14 '
+                        this.state.ResValueNum
                     )
                 ),
                 _react2.default.createElement(_reactNative.View, { style: { marginTop: 4, marginLeft: 5, marginRight: 5,
                         height: 1, backgroundColor: '#eeeeee' } })
             );
+        }
+    }, {
+        key: 'checkValueFunc',
+        value: function checkValueFunc(text) {
+
+            if (this.props.nodeM.restriction.patternM.length < 1) {
+                return true;
+            }
+            var patternM = this.props.nodeM.restriction.patternM ? this.props.nodeM.restriction.patternM : [];
+
+            for (var index = 0; index < patternM.length; index++) {
+                var str = patternM[index].pattern;
+                var reg = eval(str);
+                if (text.match(reg)) {
+                    console.log('匹配');
+                } else {
+                    console.log(patternM[index].error_message);
+                }
+            }
+
+            return true;
+        }
+    }, {
+        key: 'getDefaultProps',
+        value: function getDefaultProps() {
+            return {
+                GetResValueCallBackFunc: null
+            };
         }
     }]);
     return SHowView;
@@ -46951,7 +47020,7 @@ var ShowViewStyleSmall = exports.ShowViewStyleSmall = _reactNative.StyleSheet.cr
     marginTop: 15
   }
 });
-}, 421, null, "KuoZhanDemo/ShowViewStyleDefault.js");
+}, 419, null, "KuoZhanDemo/ShowViewStyleDefault.js");
 ;require(146);
 ;require(0);
 //# sourceMappingURL=index.ios.map

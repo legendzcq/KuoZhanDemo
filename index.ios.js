@@ -108,9 +108,10 @@ export default class KuoZhanDemo extends Component {
     return this.state.ALLRecviceData.node.map( (item,index) => this.renderItem(item,index) );
   }
     renderItem(item,index) {
+
       var RecviceNode:RecviceNodeModel = item;
 
-      console.log(index);
+      
     return (
            <ShowView key={index} nodeM ={RecviceNode} ref={RecviceNode.class} {...this.props}/>
        );

@@ -7,7 +7,7 @@
 			"restriction": [
 				{"type": "text"},
 				{"use": "required"},
-				{"pattern": "^.{4,32}$", "error_message": "请输入4-32位字符。"}
+				{"pattern": "/^.{4,32}$/", "error_message": "请输入4-32位字符."}
 			]
 		},
 		{
@@ -16,7 +16,7 @@
 			"restriction": [
 				{"type": "email"},
 				{"use": "required"},
-				{"pattern": "^[\w\+\-]+(\.[\w\+\-]+)*@[a-z\d\-]+(\.[a-z\d\-]+)*\.([a-z]{2,6})$", "error_message": "请输入正确的邮箱地址。"}
+				{"pattern": "/^[\w\+\-]+(\.[\w\+\-]+)*@[a-z\d\-]+(\.[a-z\d\-]+)*\.([a-z]{2,6})$/", "error_message": "请输入正确的邮箱地址。"}
 			]
 		},
 		{
@@ -25,7 +25,7 @@
 			"restriction": [
 				{"type": "password"},
 				{"use": "required"},
-				{"pattern": "^.{4,32}$", "error_message": "请输入4-32位字符。"}
+				{"pattern": "/^.{4,32}$/", "error_message": "请输入4-32位字符。"}
 			]
 		},
 		{
