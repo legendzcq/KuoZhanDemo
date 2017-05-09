@@ -1362,6 +1362,10 @@ var KuoZhanDemo = function (_Component) {
 
         this.checkValueFunc(obj[prop], prop);
       }
+
+      var finalInfoStr = JSON.stringify(this.state.ALLRecviceData);
+      var finalInfo = JSON.parse(finalInfoStr);
+      console.log(finalInfo);
     }
   }, {
     key: 'render',
@@ -46891,7 +46895,8 @@ var SHowView = function (_Component) {
 
         _this.state = {
             ResValue: '',
-            ResValueNum: '0/' + allNum
+            ResValueNum: '0/' + allNum,
+            GetResValueCallBackFunc: null
         };
         return _this;
     }
@@ -46976,13 +46981,6 @@ var SHowView = function (_Component) {
             }
 
             return true;
-        }
-    }, {
-        key: 'getDefaultProps',
-        value: function getDefaultProps() {
-            return {
-                GetResValueCallBackFunc: null
-            };
         }
     }]);
     return SHowView;

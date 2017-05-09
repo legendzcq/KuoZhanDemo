@@ -148,6 +148,12 @@ for (var prop in obj) {
 
   this.checkValueFunc(obj[prop],prop);
 }
+
+   //重新封装json
+   var finalInfoStr = JSON.stringify(this.state.ALLRecviceData);
+   var finalInfo = JSON.parse(finalInfoStr);
+    console.log(finalInfo);
+
   }
 
   render(){

@@ -14,9 +14,11 @@ export default class SHowView extends Component {
    constructor(props)
    {
      super(props);
+
      this.state={
       ResValue:'',
-      ResValueNum:`0/${allNum}`
+      ResValueNum:`0/${allNum}`,
+       GetResValueCallBackFunc:null,
      }
    }
     render() {
@@ -102,11 +104,8 @@ export default class SHowView extends Component {
       return true;
       
     }
-    //初始化属性
-    getDefaultProps(){
-        return{
-            GetResValueCallBackFunc:null,
-        }
-    }
+
+
+
    
 }
