@@ -31,11 +31,6 @@ export let ShowViewStyleDefault = StyleSheet.create({
     height: 1,
     backgroundColor: '#eeeeee',
     marginTop:10,
-  },
-  NumType: {
-    fontSize:12,
-    color:'#999999',
-    textAlign:'right'
   }
 });
 

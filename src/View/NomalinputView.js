@@ -10,7 +10,8 @@ import {
     Platform,
 } from 'react-native';
 import {ShowViewStyleSmall,ShowViewStyleDefault,ShowViewStyleBig} from './ShowViewStyleDefault'
-const  allNum = 14;
+var    AllNum = 0;
+var    CurrNum = 0;
 export default class NomalinputView extends Component {
    constructor(props)
    {
@@ -18,14 +19,14 @@ export default class NomalinputView extends Component {
 
      this.state={
       ResValue:'',
-      ResValueNum:this.props.nodeM.maxLength? `0/${this.props.nodeM.maxLength}`:'',
+      ResValueNum: this.props.nodeM.maxLength ? `0/${this.props.nodeM.maxLength}`:'',
       GetResValueCallBackFunc:null,
      }
    }
     render() {
         
          let tempStyle = this.props.ShowStyle;
-   
+         AllNum = this.props.nodeM.maxLength;
         return (
         <View style={tempStyle.ViewType}>
           <Text style={tempStyle.TitleTextType}>{this.props.nodeM.title}</Text>
@@ -37,14 +38,14 @@ export default class NomalinputView extends Component {
                       placeholderTextColor={'#cccccc'}  
                       autoCorrect={false}
                       onChangeText={(text)=>{
-                       var len=text.replace(/[^\x00-\xff]/g, "**").length; //正则判断输入字符串的长度
-                          this.setState({ResValueNum:`${len}/${this.props.nodeM.maxLength}`,ResValue:text});
-                          this.GetResValueCallBackFunc(text,this.props.nodeM.classID);
+                          var len =CurrNum = text.replace(/[^\x00-\xff]/g, "**").length; //正则判断输入字符串的长度
+                        this.props.nodeM.maxLength ?   this.setState({ResValueNum:`${len}/${this.props.nodeM.maxLength}`,ResValue:text}):this.setState({ResValue:text});
+                          this.GetResValueCallBackFunc(text, this.props.nodeM.classID);
                       } }
                      
                       ref={this.props.nodeM.classID}
                       />
-          {this.props.nodeM.maxLength?<Text style={tempStyle.NumType} >{this.state.ResValueNum}</Text> :<Text />} 
+          {this.props.nodeM.maxLength >CurrNum? <Text style={styles.NumTypeL} >{this.state.ResValueNum}</Text> :<Text style={styles.NumTypeR} >{this.state.ResValueNum}</Text>} 
                 </View>
           <View style={tempStyle.LineType} />
           </View>
@@ -57,8 +58,16 @@ export default class NomalinputView extends Component {
         this.props.GetResValueCallBackFunc(text,ClassType);
     }
 
-
-
-
-   
 }
+var styles = StyleSheet.create({
+  NumTypeL: {
+    fontSize:12,
+    color:'#999999',
+    textAlign:'right'
+    },
+    NumTypeR: {
+    fontSize:12,
+    color:'red',
+    textAlign:'right'
+  }  
+});

@@ -46968,7 +46968,8 @@ var _reactNative = require(12            ); // 12 = react-native
 
 var _ShowViewStyleDefault = require(420                     ); // 420 = ./ShowViewStyleDefault
 
-var allNum = 14;
+var AllNum = 0;
+var CurrNum = 0;
 
 var NomalinputView = function (_Component) {
   babelHelpers.inherits(NomalinputView, _Component);
@@ -46992,7 +46993,7 @@ var NomalinputView = function (_Component) {
       var _this2 = this;
 
       var tempStyle = this.props.ShowStyle;
-
+      AllNum = this.props.nodeM.maxLength;
       return _react2.default.createElement(
         _reactNative.View,
         { style: tempStyle.ViewType },
@@ -47011,18 +47012,22 @@ var NomalinputView = function (_Component) {
             placeholderTextColor: '#cccccc',
             autoCorrect: false,
             onChangeText: function onChangeText(text) {
-              var len = text.replace(/[^\x00-\xff]/g, "**").length;
-              _this2.setState({ ResValueNum: len + '/' + _this2.props.nodeM.maxLength, ResValue: text });
+              var len = CurrNum = text.replace(/[^\x00-\xff]/g, "**").length;
+              _this2.props.nodeM.maxLength ? _this2.setState({ ResValueNum: len + '/' + _this2.props.nodeM.maxLength, ResValue: text }) : _this2.setState({ ResValue: text });
               _this2.GetResValueCallBackFunc(text, _this2.props.nodeM.classID);
             },
 
             ref: this.props.nodeM.classID
           })),
-          this.props.nodeM.maxLength ? _react2.default.createElement(
+          this.props.nodeM.maxLength > CurrNum ? _react2.default.createElement(
             _reactNative.Text,
-            { style: tempStyle.NumType },
+            { style: styles.NumTypeL },
             this.state.ResValueNum
-          ) : _react2.default.createElement(_reactNative.Text, null)
+          ) : _react2.default.createElement(
+            _reactNative.Text,
+            { style: styles.NumTypeR },
+            this.state.ResValueNum
+          )
         ),
         _react2.default.createElement(_reactNative.View, { style: tempStyle.LineType })
       );
@@ -47038,6 +47043,19 @@ var NomalinputView = function (_Component) {
 }(_react.Component);
 
 exports.default = NomalinputView;
+
+var styles = _reactNative.StyleSheet.create({
+  NumTypeL: {
+    fontSize: 12,
+    color: '#999999',
+    textAlign: 'right'
+  },
+  NumTypeR: {
+    fontSize: 12,
+    color: 'red',
+    textAlign: 'right'
+  }
+});
 }, 422, null, "KuoZhanDemo/src/View/NomalinputView.js");
 __d(/* KuoZhanDemo/src/View/ShowViewStyleDefault.js */function(global, require, module, exports) {Object.defineProperty(exports, "__esModule", {
   value: true
@@ -47079,11 +47097,6 @@ var ShowViewStyleDefault = exports.ShowViewStyleDefault = _reactNative.StyleShee
     height: 1,
     backgroundColor: '#eeeeee',
     marginTop: 10
-  },
-  NumType: {
-    fontSize: 12,
-    color: '#999999',
-    textAlign: 'right'
   }
 });
 
