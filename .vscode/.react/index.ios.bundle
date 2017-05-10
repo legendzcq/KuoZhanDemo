@@ -46778,7 +46778,7 @@ var app = function (_Component) {
 
       return _react2.default.createElement(
         _reactNative.View,
-        { style: { flex: 1, marginTop: 20 } },
+        { style: { marginTop: 20 } },
         this.renderList(),
         _react2.default.createElement(_reactNative.Button, {
           onPress: function onPress() {
@@ -46872,6 +46872,7 @@ __d(/* KuoZhanDemo/VV_template.json */function(global, require, module, exports)
 	}, {
 		"title": "密码", "type": "password", "use": "required",
 		"input": "edit", "classID": "password", "placeholder": "请输入邮箱密码",
+		"maxLength": 32, "minLength": 4,
 		"restriction": [{ "pattern": "/^.{4,32}$/", "error_message": "请输入4-32位字符。" }]
 	}, {
 		"title": "网址", "type": "url", "use": "optional",
@@ -46889,7 +46890,74 @@ __d(/* KuoZhanDemo/VV_template.json */function(global, require, module, exports)
 };
 }, 418, null, "KuoZhanDemo/VV_template.json");
 __d(/* KuoZhanDemo/src/View/SHowView.js */function(global, require, module, exports) {Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
+});
+
+var _react = require(187    ); // 187 = react
+
+var _react2 = babelHelpers.interopRequireDefault(_react);
+
+var _reactNative = require(12            ); // 12 = react-native
+
+var _NomalinputView = require(422               ); // 422 = ./NomalinputView
+
+var _NomalinputView2 = babelHelpers.interopRequireDefault(_NomalinputView);
+
+var _ShowViewStyleDefault = require(420                     ); // 420 = ./ShowViewStyleDefault
+
+var SHowView = function (_Component) {
+  babelHelpers.inherits(SHowView, _Component);
+
+  function SHowView(props) {
+    babelHelpers.classCallCheck(this, SHowView);
+
+    var _this = babelHelpers.possibleConstructorReturn(this, (SHowView.__proto__ || Object.getPrototypeOf(SHowView)).call(this, props));
+
+    _this.state = {
+      ResValue: '',
+      GetResValueCallBackFunc: null
+    };
+    return _this;
+  }
+
+  babelHelpers.createClass(SHowView, [{
+    key: 'render',
+    value: function render() {
+
+      var tempStyle = void 0;
+      var stylevalue = 'default';
+      if (stylevalue == 'small') tempStyle = _ShowViewStyleDefault.ShowViewStyleSmall;else if (stylevalue == 'default') tempStyle = _ShowViewStyleDefault.ShowViewStyleDefault;else tempStyle = _ShowViewStyleDefault.ShowViewStyleBig;
+      if (this.props.nodeM.title == '标题') {
+        return _react2.default.createElement(
+          _reactNative.View,
+          { style: [styles.MainViewType] },
+          _react2.default.createElement(_NomalinputView2.default, babelHelpers.extends({ ShowStyle: tempStyle }, this.props))
+        );
+      } else {
+        return _react2.default.createElement(
+          _reactNative.View,
+          { style: styles.MainViewType },
+          _react2.default.createElement(_NomalinputView2.default, babelHelpers.extends({ ShowStyle: tempStyle }, this.props))
+        );
+      }
+    }
+  }]);
+  return SHowView;
+}(_react.Component);
+
+exports.default = SHowView;
+
+
+var styles = _reactNative.StyleSheet.create({
+  MainViewType: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    height: 80
+  }
+});
+}, 419, null, "KuoZhanDemo/src/View/SHowView.js");
+__d(/* KuoZhanDemo/src/View/NomalinputView.js */function(global, require, module, exports) {Object.defineProperty(exports, "__esModule", {
+  value: true
 });
 
 var _react = require(187    ); // 187 = react
@@ -46902,103 +46970,75 @@ var _ShowViewStyleDefault = require(420                     ); // 420 = ./ShowVi
 
 var allNum = 14;
 
-var SHowView = function (_Component) {
-    babelHelpers.inherits(SHowView, _Component);
+var NomalinputView = function (_Component) {
+  babelHelpers.inherits(NomalinputView, _Component);
 
-    function SHowView(props) {
-        babelHelpers.classCallCheck(this, SHowView);
+  function NomalinputView(props) {
+    babelHelpers.classCallCheck(this, NomalinputView);
 
-        var _this = babelHelpers.possibleConstructorReturn(this, (SHowView.__proto__ || Object.getPrototypeOf(SHowView)).call(this, props));
+    var _this = babelHelpers.possibleConstructorReturn(this, (NomalinputView.__proto__ || Object.getPrototypeOf(NomalinputView)).call(this, props));
 
-        _this.state = {
-            ResValue: '',
-            ResValueNum: _this.props.nodeM.maxLength ? '0/' + _this.props.nodeM.maxLength : '',
-            GetResValueCallBackFunc: null
-        };
-        return _this;
+    _this.state = {
+      ResValue: '',
+      ResValueNum: _this.props.nodeM.maxLength ? '0/' + _this.props.nodeM.maxLength : '',
+      GetResValueCallBackFunc: null
+    };
+    return _this;
+  }
+
+  babelHelpers.createClass(NomalinputView, [{
+    key: 'render',
+    value: function render() {
+      var _this2 = this;
+
+      var tempStyle = this.props.ShowStyle;
+
+      return _react2.default.createElement(
+        _reactNative.View,
+        { style: tempStyle.ViewType },
+        _react2.default.createElement(
+          _reactNative.Text,
+          { style: tempStyle.TitleTextType },
+          this.props.nodeM.title
+        ),
+        _react2.default.createElement(
+          _reactNative.View,
+          { style: { flexDirection: 'row', alignItems: 'center' } },
+          _react2.default.createElement(_reactNative.TextInput, babelHelpers.extends({}, this.props, {
+            style: tempStyle.textinputtype,
+            placeholder: this.props.nodeM.placeholder,
+            autoCapitalize: 'none',
+            placeholderTextColor: '#cccccc',
+            autoCorrect: false,
+            onChangeText: function onChangeText(text) {
+              var len = text.replace(/[^\x00-\xff]/g, "**").length;
+              _this2.setState({ ResValueNum: len + '/' + _this2.props.nodeM.maxLength, ResValue: text });
+              _this2.GetResValueCallBackFunc(text, _this2.props.nodeM.classID);
+            },
+
+            ref: this.props.nodeM.classID
+          })),
+          this.props.nodeM.maxLength ? _react2.default.createElement(
+            _reactNative.Text,
+            { style: tempStyle.NumType },
+            this.state.ResValueNum
+          ) : _react2.default.createElement(_reactNative.Text, null)
+        ),
+        _react2.default.createElement(_reactNative.View, { style: tempStyle.LineType })
+      );
     }
-
-    babelHelpers.createClass(SHowView, [{
-        key: 'render',
-        value: function render() {
-            var _this2 = this;
-
-            var tempStyle = void 0;
-            var stylevalue = 'default';
-            if (stylevalue == 'small') {
-                tempStyle = _ShowViewStyleDefault.ShowViewStyleSmall;
-            } else if (stylevalue == 'default') {
-                tempStyle = _ShowViewStyleDefault.ShowViewStyleDefault;
-            } else {
-                tempStyle = _ShowViewStyleDefault.ShowViewStyleBig;
-            }
-            return _react2.default.createElement(
-                _reactNative.View,
-                { style: tempStyle.ViewType },
-                _react2.default.createElement(
-                    _reactNative.Text,
-                    { style: tempStyle.TitleTextType },
-                    this.props.nodeM.title
-                ),
-                _react2.default.createElement(
-                    _reactNative.View,
-                    { style: { flexDirection: 'row' } },
-                    _react2.default.createElement(_reactNative.TextInput, babelHelpers.extends({}, this.props, {
-                        style: [tempStyle.textinputtype, { backgroundColor: 'red' }],
-                        placeholder: this.props.nodeM.placeholder,
-                        autoCapitalize: 'none',
-                        autoCorrect: false,
-                        onChangeText: function onChangeText(text) {
-                            var len = text.replace(/[^\x00-\xff]/g, "**").length;
-                            _this2.setState({ ResValueNum: len + '/' + allNum, ResValue: text });
-                            _this2.GetResValueCallBackFunc(text, _this2.props.nodeM.classID);
-                        },
-
-                        ref: this.props.nodeM.classID
-                    })),
-                    this.props.nodeM.maxLength ? _react2.default.createElement(
-                        _reactNative.Text,
-                        null,
-                        this.state.ResValueNum
-                    ) : _react2.default.createElement(_reactNative.Text, null)
-                ),
-                _react2.default.createElement(_reactNative.View, { style: { marginTop: 4, marginLeft: 5, marginRight: 5,
-                        height: 1, backgroundColor: '#eeeeee' } })
-            );
-        }
-    }, {
-        key: 'GetResValueCallBackFunc',
-        value: function GetResValueCallBackFunc(text, ClassType) {
-            if (this.props.GetResValueCallBackFunc == null) return;
-            this.props.GetResValueCallBackFunc(text, ClassType);
-        }
-    }, {
-        key: 'checkValueFunc',
-        value: function checkValueFunc(text) {
-
-            if (this.props.nodeM.restriction.patternM.length < 1) {
-                return true;
-            }
-            var patternM = this.props.nodeM.restriction.patternM ? this.props.nodeM.restriction.patternM : [];
-
-            for (var index = 0; index < patternM.length; index++) {
-                var str = patternM[index].pattern;
-                var reg = eval(str);
-                if (text.match(reg)) {
-                    console.log('匹配');
-                } else {
-                    console.log(patternM[index].error_message);
-                }
-            }
-
-            return true;
-        }
-    }]);
-    return SHowView;
+  }, {
+    key: 'GetResValueCallBackFunc',
+    value: function GetResValueCallBackFunc(text, ClassType) {
+      if (this.props.GetResValueCallBackFunc == null) return;
+      this.props.GetResValueCallBackFunc(text, ClassType);
+    }
+  }]);
+  return NomalinputView;
 }(_react.Component);
 
-exports.default = SHowView;
-}, 419, null, "KuoZhanDemo/src/View/SHowView.js");
+exports.default = NomalinputView;
+}, 422, null, "KuoZhanDemo/src/View/NomalinputView.js");
 __d(/* KuoZhanDemo/src/View/ShowViewStyleDefault.js */function(global, require, module, exports) {Object.defineProperty(exports, "__esModule", {
   value: true
 });
@@ -47010,30 +47050,46 @@ var _react2 = babelHelpers.interopRequireDefault(_react);
 
 var _reactNative = require(12            ); // 12 = react-native
 
+var _dimission = require(423                   ); // 423 = ./../utils/dimission
+
+var _dimission2 = babelHelpers.interopRequireDefault(_dimission);
+
 var ShowViewStyleDefault = exports.ShowViewStyleDefault = _reactNative.StyleSheet.create({
   ViewType: {
     flex: 1,
-    marginTop: 15
+    marginTop: 5
   },
   TitleTextType: {
-    color: '#d2691e',
-    fontSize: 18,
-    marginLeft: 30
+    color: '#999999',
+    fontSize: 14,
+    marginLeft: 11
   },
   textinputtype: {
     height: 30,
-    width: 250,
+    width: _dimission2.default.window.width - 50,
     borderColor: 'blue',
     borderRadius: 10,
-    marginLeft: 30,
+    marginLeft: 11,
+    fontSize: 16,
+    marginTop: 10
+  },
+  LineType: {
+    marginLeft: 5,
+    marginRight: 5,
+    height: 1,
+    backgroundColor: '#eeeeee',
+    marginTop: 10
+  },
+  NumType: {
     fontSize: 12,
-    marginTop: 15
+    color: '#999999',
+    textAlign: 'right'
   }
 });
 
 var ShowViewStyleBig = exports.ShowViewStyleBig = _reactNative.StyleSheet.create({
   ViewType: {
-    flex: 1,
+    height: 80,
     marginTop: 15
   },
   TitleTextType: {
@@ -47073,6 +47129,21 @@ var ShowViewStyleSmall = exports.ShowViewStyleSmall = _reactNative.StyleSheet.cr
   }
 });
 }, 420, null, "KuoZhanDemo/src/View/ShowViewStyleDefault.js");
+__d(/* KuoZhanDemo/src/utils/dimission.js */function(global, require, module, exports) {Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _reactNative = require(12            ); // 12 = react-native
+
+var window = {
+    width: _reactNative.Dimensions.get('window').width,
+    height: _reactNative.Dimensions.get('window').height
+};
+
+exports.default = {
+    window: window
+};
+}, 423, null, "KuoZhanDemo/src/utils/dimission.js");
 __d(/* KuoZhanDemo/src/Model/jsonModel.js */function(global, require, module, exports) {
 }, 421, null, "KuoZhanDemo/src/Model/jsonModel.js");
 ;require(126);

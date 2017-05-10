@@ -19,6 +19,7 @@
 		{
 			"title": "密码", "type": "password","use": "required",
 			"input": "edit", "classID": "password", "placeholder": "请输入邮箱密码",
+			"maxLength":32,  "minLength":4,
 			"restriction": [
 				{"pattern": "/^.{4,32}$/", "error_message": "请输入4-32位字符。"}
 			]

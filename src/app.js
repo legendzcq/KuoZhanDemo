@@ -123,7 +123,7 @@ export default class app extends Component {
   }
 
   render(){
-    return <View style={{flex:1,marginTop:20}}>
+    return <View style={{marginTop:20}}>
       {this.renderList()}
       <Button
   onPress={() => {this.AddRenderList();}}
@@ -180,14 +180,8 @@ export default class app extends Component {
              console.log( patternM[index].error_message);
              return false;
          }
-      }
-
-
-              }
-
-
-
-
+      }                
+              }          
 
         }
 
@@ -205,8 +199,7 @@ export default class app extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // justifyContent: 'center',
-    // alignItems: 'center',
+
     backgroundColor: '#F5FCFF',
   },
   welcome: {
