@@ -1,56 +1,42 @@
 {
-	"title": "电子邮箱", "class": "FormTitle",
+	"title": "电子邮箱", "classID": "FormTitle",
 	"node" : [
 		{
-			"title": "标题", "class": "itemTitle",
-			"input": "edit", "class": "text", "placeholder": "请输入标题",
+			"title": "标题", "type": "text","use": "required",
+			"input": "edit", "classID": "text", "placeholder": "请输入标题",
+			"maxLength":32,  "minLength":4,
 			"restriction": [
-				{"type": "text"},
-				{"use": "required"},
 				{"pattern": "/^.{4,32}$/", "error_message": "请输入4-32位字符."}
 			]
 		},
 		{
-			"title": "账号", "class": "itemTitle",
-			"input": "edit", "class": "email", "placeholder": "请输入邮箱地址",
+			"title": "账号", "type": "email","use": "required",
+			"input": "edit", "classID": "email", "placeholder": "请输入邮箱地址",
 			"restriction": [
-				{"type": "email"},
-				{"use": "required"},
 				{"pattern": "/^[\w\+\-]+(\.[\w\+\-]+)*@[a-z\d\-]+(\.[a-z\d\-]+)*\.([a-z]{2,6})$/", "error_message": "请输入正确的邮箱地址。"}
 			]
 		},
 		{
-			"title": "密码", "class": "itemTitle",
-			"input": "edit", "class": "password", "placeholder": "请输入邮箱密码",
+			"title": "密码", "type": "password","use": "required",
+			"input": "edit", "classID": "password", "placeholder": "请输入邮箱密码",
 			"restriction": [
-				{"type": "password"},
-				{"use": "required"},
 				{"pattern": "/^.{4,32}$/", "error_message": "请输入4-32位字符。"}
 			]
 		},
 		{
-			"title": "网址", "class": "itemTitle",
-			"input": "edit", "class": "url", "placeholder": "请输入访问该邮箱的网址",
-			"restriction": [
-				{"type": "url"},
-				{"use": "optional"}
-			]
+			"title": "网址", "type": "url","use": "optional",
+			"input": "edit", "classID": "url", "placeholder": "请输入访问该邮箱的网址",
+			"restriction": []
 		},
 		{
-			"title": "绑定手机", "class": "itemTitle",
-			"input": "edit", "class": "tel", "placeholder": "请输入该邮箱绑定的手机号码",
-			"restriction": [
-				{"type": "tel"},
-				{"use": "optional"}
-			]
+			"title": "绑定手机","type": "tel","use": "optional",
+			"input": "edit", "classID": "tel", "placeholder": "请输入该邮箱绑定的手机号码",
+			"restriction": []
 		},
 		{
-			"title": "描述", "class": "itemTitle",
-			"input": "edit", "class": "miaoshu", "placeholder": "请输入关于该邮箱绑定的描述",
-			"restriction": [
-				{"type": "text"},
-				{"use": "optional"}
-			]
+			"title": "描述","type": "text","use": "optional",
+			"input": "edit", "classID": "miaoshu", "placeholder": "请输入关于该邮箱绑定的描述",
+			"restriction": []
 		}
 	]
 }

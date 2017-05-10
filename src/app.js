@@ -32,31 +32,27 @@ export default class app extends Component {
   componentWillMount()
   {
     
-      //  var obj = eval(JSON.parse(VV_temjson));
-      // alert(VV_temjson.node)
-    // alert(VV_temjson);
+
    var RecviceData:RecviceDataModel=new Object();
     
    RecviceData.title = VV_temjson.title;
-   RecviceData.class = VV_temjson.class;
-  //  RecviceData.node = VV_temjson.node;
+   RecviceData.classID = VV_temjson.classID;
    var NodeArray=new Array();
    for(let index=0;index < VV_temjson.node.length;index++) //解析node
    {
        var RecviceNode:RecviceNodeModel = new Object();
        RecviceNode.title = VV_temjson.node[index].title;
-       RecviceNode.Tclass = VV_temjson.node[index].class;
        RecviceNode.input = VV_temjson.node[index].input;
-       RecviceNode.class = VV_temjson.node[index].class;
+       RecviceNode.classID = VV_temjson.node[index].classID;
        RecviceNode.placeholder = VV_temjson.node[index].placeholder;
-
+       RecviceNode.type = VV_temjson.node[index].type;
+       RecviceNode.use = VV_temjson.node[index].use;
+       RecviceNode.maxLength = VV_temjson.node[index].maxLength;
+       RecviceNode.minLength = VV_temjson.node[index].minLength;
        //解析restriction
        RecviceNode.restriction = new Object();
-       RecviceNode.restriction.type = VV_temjson.node[index].restriction[0].type;
-       RecviceNode.restriction.use = VV_temjson.node[index].restriction[1].use;
-      
        var patternArray=new Array();
-       for(let resindex =2 ;resindex < VV_temjson.node[index].restriction.length ; resindex ++)
+       for(let resindex =0 ;resindex < VV_temjson.node[index].restriction.length ; resindex ++)
        {
          var temppattern:patternModel = new Object();
          temppattern.pattern = VV_temjson.node[index].restriction[resindex].pattern;
@@ -65,13 +61,12 @@ export default class app extends Component {
            
        }
        RecviceNode.restriction.patternM = patternArray;
-
+      
        NodeArray.push(RecviceNode);
-     
+       this.state.SaveValueDict[RecviceNode.classID]='';
    }
     RecviceData.node=NodeArray ;
    this.setState({ALLRecviceData:RecviceData});
-    // alert(RecviceData.node[0].input);
 
 
 
@@ -87,7 +82,7 @@ export default class app extends Component {
 
       
     return (
-           <ShowView key={index} nodeM ={RecviceNode} ref={RecviceNode.class}
+           <ShowView key={index} nodeM ={RecviceNode} ref={RecviceNode.classID}
             GetResValueCallBackFunc ={(text,ClassType)=>{this.SaveTmepValue(text,ClassType)}}  {...this.props}/>
        );
   }
@@ -101,9 +96,8 @@ export default class app extends Component {
   AddRenderList(){
        var RecviceNode:RecviceNodeModel = new Object();
        RecviceNode.title = "新加元素";
-       RecviceNode.Tclass = 'itemTitle';
        RecviceNode.input = 'edit';
-       RecviceNode.class = 'itemEdit';
+       RecviceNode.classID = 'itemEdit';
        RecviceNode.placeholder = '请输入新增元素';
      
      var RecviceData:RecviceDataModel = this.state.ALLRecviceData;
@@ -117,9 +111,8 @@ export default class app extends Component {
   }
   SaveList(){
     var obj = this.state.SaveValueDict;
-for (var prop in obj) {
-
-  this.checkValueFunc(obj[prop],prop);
+    for (var prop in obj) {
+    this.checkValueFunc(obj[prop],prop);
 }
 
    //重新封装json
@@ -151,19 +144,27 @@ for (var prop in obj) {
     //字符串匹配正则表达式
     checkValueFunc(text,ClassType)
     {
-      //  this.state.ALLRecviceData.node.class == ca
+         
          var ALLnodeArray = this.state.ALLRecviceData.node;
         for(let nodeindex=0;nodeindex < ALLnodeArray.length;nodeindex++)
         {
-              if(ALLnodeArray[nodeindex].class == ClassType)
+              if(ALLnodeArray[nodeindex].classID == ClassType)
               {
 
-
+            console.log(ALLnodeArray[nodeindex].title);
 
          if(ALLnodeArray[nodeindex].restriction.patternM.length < 1)
          {
              return true;
          }
+        
+         if(text.length == 0 && (ALLnodeArray[nodeindex].use == "required"))
+         {
+             console.log(`${ALLnodeArray[nodeindex].title}为必输项`);
+             return false;
+         }
+
+
        var patternM:Array<patternModel> = ALLnodeArray[nodeindex].restriction.patternM ? ALLnodeArray[nodeindex].restriction.patternM :[];
 
       for(let index=0;index < patternM.length ; index++)

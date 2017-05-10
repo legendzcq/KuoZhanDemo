@@ -9,17 +9,19 @@ export type patternModel = {
 
 export type restrictionModel = {
 
-  type:string,
-  use:string,
+
   patternM:Array<patternModel>,
 };
 
 export type RecviceNodeModel = {
   title:string,
-  Tclass:string,
-  class:string,
+  classID:string,
   input:string,
   placeholder:string,
+  type:string,
+  use:string,
+  maxLength:Number,
+  minLength:Number,
   restriction:restrictionModel,
 }
 
@@ -27,6 +29,6 @@ export type RecviceNodeModel = {
 export type RecviceDataModel = {
 
   title:string,
-  class:string,
+  classID:string,
   node:Array<RecviceNodeModel>,
 };

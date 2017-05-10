@@ -7,6 +7,7 @@ import {
     TouchableHighlight,
     StyleSheet,
     TextInput,
+    Platform,
 } from 'react-native';
 import {ShowViewStyleSmall,ShowViewStyleDefault,ShowViewStyleBig} from './ShowViewStyleDefault'
 const  allNum = 14;
@@ -17,7 +18,7 @@ export default class SHowView extends Component {
 
      this.state={
       ResValue:'',
-      ResValueNum:`0/${allNum}`,
+      ResValueNum:this.props.nodeM.maxLength? `0/${this.props.nodeM.maxLength}`:'',
        GetResValueCallBackFunc:null,
      }
    }
@@ -36,7 +37,6 @@ export default class SHowView extends Component {
          {
              tempStyle = ShowViewStyleBig;
          }
-
         return (
         <View style={tempStyle.ViewType}>
           <Text style={tempStyle.TitleTextType}>{this.props.nodeM.title}</Text>
@@ -47,21 +47,14 @@ export default class SHowView extends Component {
                       autoCapitalize="none"
                       autoCorrect={false}
                       onChangeText={(text)=>{
-              
-                      
                        var len=text.replace(/[^\x00-\xff]/g, "**").length; //正则判断输入字符串的长度
-                       if(len>14)
-                      {
-                          return;
-                      }
                           this.setState({ResValueNum:`${len}/${allNum}`,ResValue:text});
-                          this.GetResValueCallBackFunc(text,this.props.nodeM.class);
+                          this.GetResValueCallBackFunc(text,this.props.nodeM.classID);
                       } }
                      
-                      value={this.state.ResValue}
-                      ref={this.props.nodeM.class}
+                      ref={this.props.nodeM.classID}
                       />
-           <Text >{this.state.ResValueNum}</Text>
+          {this.props.nodeM.maxLength?<Text >{this.state.ResValueNum}</Text> :<Text />} 
          </View>
           <View style={{marginTop:4, marginLeft:5,marginRight:5,
                         height:1,backgroundColor:'#eeeeee'}}>
