@@ -4,7 +4,14 @@
 		{
 			"title": "标题", "type": "text","use": "required",
 			"input": "edit", "classID": "text", "placeholder": "请输入标题",
-			"maxLength":32,  "minLength":4,
+			"maxLength":32,  "minLength":4,"source":"FormTitleImage",
+			"restriction": [
+				{"pattern": "/^.{4,32}$/", "error_message": "请输入4-32位字符."}
+			]
+		},
+				{
+			"title": "分类", "type": "ClassName","use": "required",
+			"input": "edit", "classID": "ClassName", "placeholder": "请输入标题",
 			"restriction": [
 				{"pattern": "/^.{4,32}$/", "error_message": "请输入4-32位字符."}
 			]

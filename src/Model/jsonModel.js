@@ -21,7 +21,8 @@ export type RecviceNodeModel = {
   type:string,
   use:string,
   maxLength:Number,
-  minLength:Number,
+  minLength: Number,
+  source:string,
   restriction:restrictionModel,
 }
 

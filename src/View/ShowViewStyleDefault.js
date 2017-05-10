@@ -25,6 +25,15 @@ export let ShowViewStyleDefault = StyleSheet.create({
     fontSize: 16,
     marginTop: 10
   },
+    Titletextinputtype: {
+    height: 31,
+    width: Dimen.window.width-50-46,
+    borderColor: 'blue',
+    borderRadius: 10,
+    marginLeft: 11,
+    fontSize: 16,
+    marginTop: 10
+  },
   LineType: {
     marginLeft: 5,
     marginRight: 5,

@@ -49,6 +49,8 @@ export default class app extends Component {
        RecviceNode.use = VV_temjson.node[index].use;
        RecviceNode.maxLength = VV_temjson.node[index].maxLength;
        RecviceNode.minLength = VV_temjson.node[index].minLength;
+      RecviceNode.source = VV_temjson.node[index].source;
+     
        //解析restriction
        RecviceNode.restriction = new Object();
        var patternArray=new Array();

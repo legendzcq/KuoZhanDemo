@@ -6,6 +6,7 @@ import {
 } from 'react-native';
 
 import NomalinputView from './NomalinputView'
+import TitleinputView from './TitleinputView'
 
 import {ShowViewStyleSmall,ShowViewStyleDefault,ShowViewStyleBig} from './ShowViewStyleDefault'
 export default class SHowView extends Component {
@@ -28,7 +29,7 @@ export default class SHowView extends Component {
          if (this.props.nodeM.title == '标题') {
         return (
             <View style={[styles.MainViewType]}>
-                <NomalinputView ShowStyle={tempStyle} {...this.props} />
+                <TitleinputView ShowStyle={tempStyle} {...this.props} />
           </View>
         );
          } else

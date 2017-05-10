@@ -46698,6 +46698,7 @@ var app = function (_Component) {
         RecviceNode.use = _VV_template2.default.node[index].use;
         RecviceNode.maxLength = _VV_template2.default.node[index].maxLength;
         RecviceNode.minLength = _VV_template2.default.node[index].minLength;
+        RecviceNode.source = _VV_template2.default.node[index].source;
 
         RecviceNode.restriction = new Object();
         var patternArray = new Array();
@@ -46863,7 +46864,11 @@ __d(/* KuoZhanDemo/VV_template.json */function(global, require, module, exports)
 	"node": [{
 		"title": "标题", "type": "text", "use": "required",
 		"input": "edit", "classID": "text", "placeholder": "请输入标题",
-		"maxLength": 32, "minLength": 4,
+		"maxLength": 32, "minLength": 4, "source": "FormTitleImage",
+		"restriction": [{ "pattern": "/^.{4,32}$/", "error_message": "请输入4-32位字符." }]
+	}, {
+		"title": "分类", "type": "ClassName", "use": "required",
+		"input": "edit", "classID": "ClassName", "placeholder": "请输入标题",
 		"restriction": [{ "pattern": "/^.{4,32}$/", "error_message": "请输入4-32位字符." }]
 	}, {
 		"title": "账号", "type": "email", "use": "required",
@@ -46903,6 +46908,10 @@ var _NomalinputView = require(422               ); // 422 = ./NomalinputView
 
 var _NomalinputView2 = babelHelpers.interopRequireDefault(_NomalinputView);
 
+var _TitleinputView = require(424               ); // 424 = ./TitleinputView
+
+var _TitleinputView2 = babelHelpers.interopRequireDefault(_TitleinputView);
+
 var _ShowViewStyleDefault = require(420                     ); // 420 = ./ShowViewStyleDefault
 
 var SHowView = function (_Component) {
@@ -46931,7 +46940,7 @@ var SHowView = function (_Component) {
         return _react2.default.createElement(
           _reactNative.View,
           { style: [styles.MainViewType] },
-          _react2.default.createElement(_NomalinputView2.default, babelHelpers.extends({ ShowStyle: tempStyle }, this.props))
+          _react2.default.createElement(_TitleinputView2.default, babelHelpers.extends({ ShowStyle: tempStyle }, this.props))
         );
       } else {
         return _react2.default.createElement(
@@ -47091,6 +47100,15 @@ var ShowViewStyleDefault = exports.ShowViewStyleDefault = _reactNative.StyleShee
     fontSize: 16,
     marginTop: 10
   },
+  Titletextinputtype: {
+    height: 31,
+    width: _dimission2.default.window.width - 50 - 46,
+    borderColor: 'blue',
+    borderRadius: 10,
+    marginLeft: 11,
+    fontSize: 16,
+    marginTop: 10
+  },
   LineType: {
     marginLeft: 5,
     marginRight: 5,
@@ -47157,6 +47175,123 @@ exports.default = {
     window: window
 };
 }, 423, null, "KuoZhanDemo/src/utils/dimission.js");
+__d(/* KuoZhanDemo/src/View/TitleinputView.js */function(global, require, module, exports) {Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = require(187    ); // 187 = react
+
+var _react2 = babelHelpers.interopRequireDefault(_react);
+
+var _reactNative = require(12            ); // 12 = react-native
+
+var _ShowViewStyleDefault = require(420                     ); // 420 = ./ShowViewStyleDefault
+
+var _ImageDict = require(427                   ); // 427 = ./../utils/ImageDict
+
+var AllNum = 0;
+var CurrNum = 0;
+
+var TitleinputView = function (_Component) {
+  babelHelpers.inherits(TitleinputView, _Component);
+
+  function TitleinputView(props) {
+    babelHelpers.classCallCheck(this, TitleinputView);
+
+    var _this = babelHelpers.possibleConstructorReturn(this, (TitleinputView.__proto__ || Object.getPrototypeOf(TitleinputView)).call(this, props));
+
+    _this.state = {
+      ResValue: '',
+      ResValueNum: _this.props.nodeM.maxLength ? '0/' + _this.props.nodeM.maxLength : '',
+      GetResValueCallBackFunc: null
+    };
+    return _this;
+  }
+
+  babelHelpers.createClass(TitleinputView, [{
+    key: 'render',
+    value: function render() {
+      var _this2 = this;
+
+      var tempStyle = this.props.ShowStyle;
+      AllNum = this.props.nodeM.maxLength;
+      return _react2.default.createElement(
+        _reactNative.View,
+        { style: tempStyle.ViewType },
+        _react2.default.createElement(
+          _reactNative.View,
+          { style: { flexDirection: 'row', alignItems: 'center' } },
+          _react2.default.createElement(_reactNative.Image, { style: styles.IconType, source: (0, _ImageDict.GetImageDictValue)(this.props.nodeM.source) }),
+          _react2.default.createElement(_reactNative.TextInput, babelHelpers.extends({}, this.props, {
+            style: tempStyle.Titletextinputtype,
+            placeholder: this.props.nodeM.placeholder,
+            autoCapitalize: 'none',
+            placeholderTextColor: '#cccccc',
+            autoCorrect: false,
+            onChangeText: function onChangeText(text) {
+              var len = CurrNum = text.replace(/[^\x00-\xff]/g, "**").length;
+              _this2.props.nodeM.maxLength ? _this2.setState({ ResValueNum: len + '/' + _this2.props.nodeM.maxLength, ResValue: text }) : _this2.setState({ ResValue: text });
+              _this2.GetResValueCallBackFunc(text, _this2.props.nodeM.classID);
+            },
+
+            ref: this.props.nodeM.classID
+          })),
+          this.props.nodeM.maxLength > CurrNum ? _react2.default.createElement(
+            _reactNative.Text,
+            { style: styles.NumTypeL },
+            this.state.ResValueNum
+          ) : _react2.default.createElement(
+            _reactNative.Text,
+            { style: styles.NumTypeR },
+            this.state.ResValueNum
+          )
+        ),
+        _react2.default.createElement(_reactNative.View, { style: tempStyle.LineType })
+      );
+    }
+  }, {
+    key: 'GetResValueCallBackFunc',
+    value: function GetResValueCallBackFunc(text, ClassType) {
+      if (this.props.GetResValueCallBackFunc == null) return;
+      this.props.GetResValueCallBackFunc(text, ClassType);
+    }
+  }]);
+  return TitleinputView;
+}(_react.Component);
+
+exports.default = TitleinputView;
+
+var styles = _reactNative.StyleSheet.create({
+  NumTypeL: {
+    fontSize: 12,
+    color: '#999999',
+    textAlign: 'right'
+  },
+  NumTypeR: {
+    fontSize: 12,
+    color: 'red',
+    textAlign: 'right'
+  },
+  IconType: {
+    width: 40,
+    height: 31,
+    marginLeft: 11
+
+  }
+});
+}, 424, null, "KuoZhanDemo/src/View/TitleinputView.js");
+__d(/* KuoZhanDemo/src/utils/ImageDict.js */function(global, require, module, exports) {Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+var GetImageDictValue = exports.GetImageDictValue = function GetImageDictValue(name) {
+    var imagedict = new Array();
+    imagedict['FormTitleImage'] = require(426                       ); // 426 = ./../../Image/Group2.png
+
+    return imagedict[name];
+};
+}, 427, null, "KuoZhanDemo/src/utils/ImageDict.js");
+__d(/* KuoZhanDemo/Image/Group2.png */function(global, require, module, exports) {module.exports = require(276                                         ).registerAsset({"__packager_asset":true,"httpServerLocation":"/assets/Image","width":40,"height":31,"scales":[1,2,3],"hash":"7e5ea05b896b8450d621267b1f8548b4","name":"Group2","type":"png"}); // 276 = react-native/Libraries/Image/AssetRegistry
+}, 426, null, "KuoZhanDemo/Image/Group2.png");
 __d(/* KuoZhanDemo/src/Model/jsonModel.js */function(global, require, module, exports) {
 }, 421, null, "KuoZhanDemo/src/Model/jsonModel.js");
 ;require(126);

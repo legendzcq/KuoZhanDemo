@@ -2,14 +2,16 @@ import React, { Component } from 'react';
 
 import {
     View,
+    Image,
     Text,
     StyleSheet,
-    TextInput
+    TextInput,
 } from 'react-native';
-import {ShowViewStyleSmall,ShowViewStyleDefault,ShowViewStyleBig} from './ShowViewStyleDefault'
+import { ShowViewStyleSmall, ShowViewStyleDefault, ShowViewStyleBig } from './ShowViewStyleDefault'
+import { GetImageDictValue } from './../utils/ImageDict'
 var    AllNum = 0;
 var    CurrNum = 0;
-export default class NomalinputView extends Component {
+export default class TitleinputView extends Component {
    constructor(props)
    {
      super(props);
@@ -26,10 +28,10 @@ export default class NomalinputView extends Component {
          AllNum = this.props.nodeM.maxLength;
         return (
         <View style={tempStyle.ViewType}>
-          <Text style={tempStyle.TitleTextType}>{this.props.nodeM.title}</Text>
-          <View style={{flexDirection:'row',alignItems:'center'}}> 
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}> 
+             <Image style={styles.IconType} source={GetImageDictValue(this.props.nodeM.source)}/>       
           <TextInput  {...this.props} 
-                      style={tempStyle.textinputtype}
+                    style={tempStyle.Titletextinputtype}
                       placeholder={this.props.nodeM.placeholder}
                       autoCapitalize="none"
                       placeholderTextColor={'#cccccc'}  
@@ -43,7 +45,7 @@ export default class NomalinputView extends Component {
                       ref={this.props.nodeM.classID}
                       />
           {this.props.nodeM.maxLength >CurrNum? <Text style={styles.NumTypeL} >{this.state.ResValueNum}</Text> :<Text style={styles.NumTypeR} >{this.state.ResValueNum}</Text>} 
-                </View>
+       </View>
           <View style={tempStyle.LineType} />
           </View>
         );
@@ -66,5 +68,11 @@ var styles = StyleSheet.create({
     fontSize:12,
     color:'red',
     textAlign:'right'
+  },  
+  IconType: {
+      width: 40,  
+      height: 31,
+      marginLeft:11,
+    
   }  
 });
