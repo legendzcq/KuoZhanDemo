@@ -17,6 +17,7 @@ export let ShowViewStyleDefault = StyleSheet.create({
     marginLeft: 11
   },
   textinputtype: {
+     padding: 0,
     height: 30,
     width: Dimen.window.width-50,
     borderColor: 'blue',
@@ -25,7 +26,8 @@ export let ShowViewStyleDefault = StyleSheet.create({
     fontSize: 16,
     marginTop: 10
   },
-    Titletextinputtype: {
+  Titletextinputtype: {
+       padding: 0,
     height: 31,
     width: Dimen.window.width-50-46,
     borderColor: 'blue',

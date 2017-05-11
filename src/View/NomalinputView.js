@@ -35,7 +35,7 @@ export default class NomalinputView extends Component {
                       placeholderTextColor={'#cccccc'}  
                       autoCorrect={false}
                       onChangeText={(text)=>{
-                          var len =CurrNum = text.replace(/[^\x00-\xff]/g, "**").length; //正则判断输入字符串的长度
+                      var len =CurrNum = text.replace(/[^\x00-\xff]/g, "**").length; //正则判断输入字符串的长度
                         this.props.nodeM.maxLength ?   this.setState({ResValueNum:`${len}/${this.props.nodeM.maxLength}`,ResValue:text}):this.setState({ResValue:text});
                           this.GetResValueCallBackFunc(text, this.props.nodeM.classID);
                       } }

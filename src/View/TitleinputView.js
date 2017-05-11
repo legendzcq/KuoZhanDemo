@@ -32,7 +32,8 @@ export default class TitleinputView extends Component {
              <Image style={styles.IconType} source={GetImageDictValue(this.props.nodeM.source)}/>       
           <TextInput  {...this.props} 
                     style={tempStyle.Titletextinputtype}
-                      placeholder={this.props.nodeM.placeholder}
+                    placeholder={this.props.nodeM.placeholder}
+                     underlineColorAndroid="transparent"
                       autoCapitalize="none"
                       placeholderTextColor={'#cccccc'}  
                       autoCorrect={false}
