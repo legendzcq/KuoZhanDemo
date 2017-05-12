@@ -1,6 +1,4 @@
 
-import { zh } from './string/zh';
-import { en } from './string/en';
 
 export const getString = (key)=> {
     let language =  global.LanguageType;
