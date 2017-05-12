@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import { ShowViewStyleSmall, ShowViewStyleDefault, ShowViewStyleBig } from './ShowViewStyleDefault'
 import { GetImageDictValue } from './../utils/ImageDict'
+import { getString } from './../Language/RString'  
 var    AllNum = 0;
 var    CurrNum = 0;
 export default class TitleinputView extends Component {
@@ -32,7 +33,7 @@ export default class TitleinputView extends Component {
              <Image style={styles.IconType} source={GetImageDictValue(this.props.nodeM.source)}/>       
           <TextInput  {...this.props} 
                     style={tempStyle.Titletextinputtype}
-                    placeholder={this.props.nodeM.placeholder}
+                    placeholder={getString(this.props.nodeM.placeholder)}
                      underlineColorAndroid="transparent"
                       autoCapitalize="none"
                       placeholderTextColor={'#cccccc'}  

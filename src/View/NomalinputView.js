@@ -6,7 +6,8 @@ import {
     StyleSheet,
     TextInput
 } from 'react-native';
-import {ShowViewStyleSmall,ShowViewStyleDefault,ShowViewStyleBig} from './ShowViewStyleDefault'
+import { ShowViewStyleSmall, ShowViewStyleDefault, ShowViewStyleBig } from './ShowViewStyleDefault';
+import { getString } from './../Language/RString.js';
 var    AllNum = 0;
 var    CurrNum = 0;
 export default class NomalinputView extends Component {
@@ -26,11 +27,11 @@ export default class NomalinputView extends Component {
          AllNum = this.props.nodeM.maxLength;
         return (
         <View style={tempStyle.ViewType}>
-          <Text style={tempStyle.TitleTextType}>{this.props.nodeM.title}</Text>
+          <Text style={tempStyle.TitleTextType}>{getString(this.props.nodeM.title)}</Text>
           <View style={{flexDirection:'row',alignItems:'center'}}> 
           <TextInput  {...this.props} 
                       style={tempStyle.textinputtype}
-                      placeholder={this.props.nodeM.placeholder}
+                      placeholder={getString(this.props.nodeM.placeholder)}
                       autoCapitalize="none"
                       placeholderTextColor={'#cccccc'}  
                       autoCorrect={false}
