@@ -111,10 +111,16 @@ export default class Category extends Component {
             }}
             onSubmitEditing={(event) => { 
               
-              {/*temparray.push(event.nativeEvent.text);*/ }
+              if (event.nativeEvent.text == '' || event.nativeEvent.text == null) {
+
+              }
+              else
+              {
               temparray.splice(temparray.length - 1, 0, event.nativeEvent.text);
-              console.log(temparray)
               global.JMDcategory.setState({ dataArray: temparray });  
+               }  
+              
+
             }
               
             }
@@ -128,12 +134,13 @@ export default class Category extends Component {
     { 
     return (
       <TouchableOpacity onPress={() => {
-        toastShort('删除？');
+        temparray.splice(rowID,1);
+              global.JMDcategory.setState({ dataArray: temparray });  
         }}>
         <View>
           <View style={styles.rowType}>
             <Text style={styles.text}>
-              {rowData}--{rowID}
+              {rowData}
             </Text>
           </View>
         </View>
@@ -148,17 +155,14 @@ _renderRowBtoom(rowData, sectionID, rowID) {
     
   if (rowData != '预留') {
     return (
-      <TouchableOpacity onPress={() => {
-        toastShort('删除？');
-      }}>
+
         <View>
           <View style={styles.rowType}>
             <Text style={styles.text}>
-              {rowData}--{rowID}
+              {rowData}
             </Text>
           </View>
         </View>
-      </TouchableOpacity>
     );
   } else { 
         return (
@@ -189,12 +193,7 @@ var styles = StyleSheet.create({
   },
   rowInputType: {
     margin:7,
-    // borderColor: 'rgb(31, 168, 32)',
-    //  borderStyle:'solid',
-    //  backgroundColor: 'white',
-     height: 25,
-    //  borderWidth: 0.7,
-    //  borderRadius:15,
+     height: 25
   },
   text: {
     flex: 1,
@@ -206,12 +205,7 @@ var styles = StyleSheet.create({
   },
   textinputtype: {
     flex: 1,
-    // backgroundColor: 'white',
     width: 100,
-    height: 25,
-    // borderColor: 'rgb(31, 168, 32)',
-    // borderStyle:'dashed',
-    // borderWidth: 0.7,
-    // borderRadius:15,
+    height: 25
   }
 });

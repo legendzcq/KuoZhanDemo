@@ -27,7 +27,7 @@ export default class app extends Component {
         ALLRecviceData:RecviceDataModel=new Object(),
         SaveValueDict:[],
       }
-      global.LanguageType = "zh";
+      global.LanguageType = "en";
    }
 
   componentWillMount()
