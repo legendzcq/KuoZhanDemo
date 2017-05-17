@@ -8,4 +8,4 @@ import Category from './src/View/Category';
 import ListViewPagingExample from './src/View/ListViewPagingExample';
 
 
-AppRegistry.registerComponent('KuoZhanDemo', () => ListViewPagingExample);
+AppRegistry.registerComponent('KuoZhanDemo', () => app);

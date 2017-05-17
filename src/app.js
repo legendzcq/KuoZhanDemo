@@ -10,25 +10,46 @@ import {
   StyleSheet,
   Text,
   View,
+  ScrollView,
   Button,
 } from 'react-native';
+import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter';
 import VV_temjson from '../VV_template.json'
 import ShowView from'./View/SHowView'
 import {patternModel} from './Model/jsonModel'
 import {restrictionModel} from './Model/jsonModel'
 import {RecviceNodeModel} from './Model/jsonModel'
 // import {RecviceDataModel} from './Model/jsonModel'
-// ,,,
 export default class app extends Component {
    constructor(props)
    {
      super(props);
       this.state={
         ALLRecviceData:RecviceDataModel=new Object(),
-        SaveValueDict:[],
+        SaveValueDict: [],
+        keyboardSpace:0,
       }
-      global.LanguageType = "en";
+      global.LanguageType = "zh";
    }
+componentDidMount(){
+　 RCTDeviceEventEmitter.addListener('keyboardWillShow', this.updateKeyboardSpace.bind(this));
+　　RCTDeviceEventEmitter.addListener('keyboardWillHide', this.resetKeyboardSpace.bind(this));
+}
+componentWillUnmount() {
+　　RCTDeviceEventEmitter.removeAllListeners('keyboardWillShow')
+　　RCTDeviceEventEmitter.removeAllListeners('keyboardWillHide')
+}  
+updateKeyboardSpace(frames){
+const keyboardSpace = frames.endCoordinates.height//获取键盘高度
+this.setState({
+  keyboardSpace: keyboardSpace,
+})
+}
+ resetKeyboardSpace(){
+   this.setState({
+     keyboardSpace: 0,
+   　　});
+ }  
 
   componentWillMount()
   {
@@ -126,7 +147,11 @@ export default class app extends Component {
   }
 
   render(){
-    return <View style={{marginTop:20}}>
+    return <ScrollView contentContainerStyle={{ paddingVertical: 20 }}
+      keyboardDismissMode='interactive'
+      contentInset={{ bottom: this.state.keyboardSpace }}
+      showsVerticalScrollIndicator={true}
+    >
       {this.renderList()}
       <Button
   onPress={() => {this.AddRenderList();}}
@@ -140,7 +165,7 @@ export default class app extends Component {
   color="#841584"
   accessibilityLabel="Learn more about this purple button"
 /> 
-    </View>
+    </ScrollView>
   }
 
 
@@ -202,7 +227,6 @@ export default class app extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-
     backgroundColor: '#F5FCFF',
   },
   welcome: {
@@ -211,7 +235,6 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   instructions: {
-    // textAlign: 'center',
     color: '#333333',
     marginBottom: 5,
   },
