@@ -75,9 +75,9 @@ export default class CabBleView extends Component {
                 showsVerticalScrollIndicator={false}
             >
                 <Image source={require('./../../Image/极密盾加密/IphoneBackgroundImage.png')} style={styles.backgroundImageStyle} > 
-               <BtnView iconName={require('./../../Image/手机加密/DevListIcon.png')} BtnClickBackFunc={this.slideViewPressBackFunc.bind(this)} Touchstyle={[styles.headContainer, {left:10}]}/> 
-                <BtnView iconName={require('./../../Image/手机加密/Combined Shape.png')} BtnClickBackFunc={this.SearchViewPressBackFunc.bind(this)} Touchstyle={[styles.headContainer, {left:Dimen.window.width-38-10}]} /> 
-                <BtnView iconName={require('./../../Image/手机加密/seachcopy.png')} BtnClickBackFunc={this.AddViewPressBackFunc.bind(this)} Touchstyle={[styles.headContainer, {left:Dimen.window.width-38-70}]}/>   
+               <BtnView iconName={require('./../../Image/极密盾加密/DevListIcon.png')} BtnClickBackFunc={this.slideViewPressBackFunc.bind(this)} Touchstyle={[styles.headContainer, {left:10}]}/> 
+                <BtnView iconName={require('./../../Image/极密盾加密/Combined Shape.png')} BtnClickBackFunc={this.SearchViewPressBackFunc.bind(this)} Touchstyle={[styles.headContainer, {left:Dimen.window.width-38-10}]} /> 
+                <BtnView iconName={require('./../../Image/极密盾加密/seachcopy.png')} BtnClickBackFunc={this.AddViewPressBackFunc.bind(this)} Touchstyle={[styles.headContainer, {left:Dimen.window.width-38-70}]}/>   
 
                   
                   
@@ -151,9 +151,9 @@ export default class CabBleView extends Component {
       let ImageLeft = (Dimen.window.width / showClassNameNum - 32)/2;
       return (
           <TouchableOpacity onPress={() => {
-              NativeModules.ParamsProviderModule.ClassNameClick(rowData).then(result => {
+              {/*NativeModules.ParamsProviderModule.ClassNameClick(rowData).then(result => {
               }, error => {  
-               });
+               });*/}
               
           }}>
       <View style={styles.CellType}>
@@ -190,9 +190,9 @@ export default class CabBleView extends Component {
       let ImageLeft = (Dimen.window.width / showClassNameNum - 32)/2;
       return (
           <TouchableOpacity onPress={() => {
-              NativeModules.ParamsProviderModule.ClassNameClick(rowData).then(result => {
+              {/*NativeModules.ParamsProviderModule.ClassNameClick(rowData).then(result => {
               }, error => {  
-               });
+               });*/}
               
           }}>
       <View style={styles.CellType}>

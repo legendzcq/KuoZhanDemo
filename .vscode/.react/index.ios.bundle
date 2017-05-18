@@ -48646,7 +48646,7 @@ __d(/* KuoZhanDemo/Image/手机加密/Oval 4.png */function(global, require, mod
 }, 459, null, "KuoZhanDemo/Image/手机加密/Oval 4.png");
 __d(/* KuoZhanDemo/Image/手机加密/Oval 4 Copy.png */function(global, require, module, exports) {module.exports = require(276                                         ).registerAsset({"__packager_asset":true,"httpServerLocation":"/assets/Image/手机加密","width":10,"height":10,"scales":[2,3],"hash":"902fd28961d09d903f96269a251ee1bc","name":"Oval 4 Copy","type":"png"}); // 276 = react-native/Libraries/Image/AssetRegistry
 }, 460, null, "KuoZhanDemo/Image/手机加密/Oval 4 Copy.png");
-__d(/* KuoZhanDemo/Image/手机加密/TagIcon.png */function(global, require, module, exports) {module.exports = require(276                                         ).registerAsset({"__packager_asset":true,"httpServerLocation":"/assets/Image/手机加密","width":18,"height":30,"scales":[1,2,3],"hash":"303cdb46d188c6d0a85ffec05ba91d8f","name":"TagIcon","type":"png"}); // 276 = react-native/Libraries/Image/AssetRegistry
+__d(/* KuoZhanDemo/Image/手机加密/TagIcon.png */function(global, require, module, exports) {module.exports = require(276                                         ).registerAsset({"__packager_asset":true,"httpServerLocation":"/assets/Image/手机加密","width":18,"height":30,"scales":[1,2,3],"hash":"4490203a55ad76a22ab43525d3411bb7","name":"TagIcon","type":"png"}); // 276 = react-native/Libraries/Image/AssetRegistry
 }, 461, null, "KuoZhanDemo/Image/手机加密/TagIcon.png");
 __d(/* KuoZhanDemo/src/View/CabBleView.js */function(global, require, module, exports) {Object.defineProperty(exports, "__esModule", {
     value: true
@@ -48733,9 +48733,9 @@ var CabBleView = function (_Component) {
                 _react2.default.createElement(
                     _reactNative.Image,
                     { source: require(471                                            ), style: styles.backgroundImageStyle }, // 471 = ./../../Image/极密盾加密/IphoneBackgroundImage.png
-                    _react2.default.createElement(BtnView, { iconName: require(456                                 ), BtnClickBackFunc: this.slideViewPressBackFunc.bind(this), Touchstyle: [styles.headContainer, { left: 10 }] }), // 456 = ./../../Image/手机加密/DevListIcon.png
-                    _react2.default.createElement(BtnView, { iconName: require(457                                    ), BtnClickBackFunc: this.SearchViewPressBackFunc.bind(this), Touchstyle: [styles.headContainer, { left: _dimission2.default.window.width - 38 - 10 }] }), // 457 = ./../../Image/手机加密/Combined Shape.png
-                    _react2.default.createElement(BtnView, { iconName: require(458                               ), BtnClickBackFunc: this.AddViewPressBackFunc.bind(this), Touchstyle: [styles.headContainer, { left: _dimission2.default.window.width - 38 - 70 }] }), // 458 = ./../../Image/手机加密/seachcopy.png
+                    _react2.default.createElement(BtnView, { iconName: require(475                                  ), BtnClickBackFunc: this.slideViewPressBackFunc.bind(this), Touchstyle: [styles.headContainer, { left: 10 }] }), // 475 = ./../../Image/极密盾加密/DevListIcon.png
+                    _react2.default.createElement(BtnView, { iconName: require(476                                     ), BtnClickBackFunc: this.SearchViewPressBackFunc.bind(this), Touchstyle: [styles.headContainer, { left: _dimission2.default.window.width - 38 - 10 }] }), // 476 = ./../../Image/极密盾加密/Combined Shape.png
+                    _react2.default.createElement(BtnView, { iconName: require(477                                ), BtnClickBackFunc: this.AddViewPressBackFunc.bind(this), Touchstyle: [styles.headContainer, { left: _dimission2.default.window.width - 38 - 70 }] }), // 477 = ./../../Image/极密盾加密/seachcopy.png
                     _react2.default.createElement(
                         _reactNative.View,
                         { style: { top: 75, backgroundColor: 'rgba(255,255,255,0.0)' } },
@@ -48811,7 +48811,7 @@ var CabBleView = function (_Component) {
             return _react2.default.createElement(
                 _reactNative.TouchableOpacity,
                 { onPress: function onPress() {
-                        _reactNative.NativeModules.ParamsProviderModule.ClassNameClick(rowData).then(function (result) {}, function (error) {});
+                        {}
                     } },
                 _react2.default.createElement(
                     _reactNative.View,
@@ -48867,7 +48867,7 @@ var CabBleView = function (_Component) {
             return _react2.default.createElement(
                 _reactNative.TouchableOpacity,
                 { onPress: function onPress() {
-                        _reactNative.NativeModules.ParamsProviderModule.ClassNameClick(rowData).then(function (result) {}, function (error) {});
+                        {}
                     } },
                 _react2.default.createElement(
                     _reactNative.View,
@@ -49029,11 +49029,17 @@ __d(/* KuoZhanDemo/Image/极密盾加密/密条-橙.png */function(global, requi
 }, 470, null, "KuoZhanDemo/Image/极密盾加密/密条-橙.png");
 __d(/* KuoZhanDemo/Image/极密盾加密/IphoneBackgroundImage.png */function(global, require, module, exports) {module.exports = require(276                                         ).registerAsset({"__packager_asset":true,"httpServerLocation":"/assets/Image/极密盾加密","width":414,"height":180,"scales":[2,3],"hash":"4eb3d40566a6ce1cfca74a2cfc7aaa19","name":"IphoneBackgroundImage","type":"png"}); // 276 = react-native/Libraries/Image/AssetRegistry
 }, 471, null, "KuoZhanDemo/Image/极密盾加密/IphoneBackgroundImage.png");
+__d(/* KuoZhanDemo/Image/极密盾加密/DevListIcon.png */function(global, require, module, exports) {module.exports = require(276                                         ).registerAsset({"__packager_asset":true,"httpServerLocation":"/assets/Image/极密盾加密","width":19,"height":19,"scales":[1,2,3],"hash":"c25d4f3ec6d93cdff06c341d698658fa","name":"DevListIcon","type":"png"}); // 276 = react-native/Libraries/Image/AssetRegistry
+}, 475, null, "KuoZhanDemo/Image/极密盾加密/DevListIcon.png");
+__d(/* KuoZhanDemo/Image/极密盾加密/Combined Shape.png */function(global, require, module, exports) {module.exports = require(276                                         ).registerAsset({"__packager_asset":true,"httpServerLocation":"/assets/Image/极密盾加密","width":18,"height":18,"scales":[1,2,3],"hash":"0251555eb87b43e2aebf7129413e2853","name":"Combined Shape","type":"png"}); // 276 = react-native/Libraries/Image/AssetRegistry
+}, 476, null, "KuoZhanDemo/Image/极密盾加密/Combined Shape.png");
+__d(/* KuoZhanDemo/Image/极密盾加密/seachcopy.png */function(global, require, module, exports) {module.exports = require(276                                         ).registerAsset({"__packager_asset":true,"httpServerLocation":"/assets/Image/极密盾加密","width":18,"height":18,"scales":[1,2,3],"hash":"6ae84163b038ba65d943b07ccb5f08da","name":"seachcopy","type":"png"}); // 276 = react-native/Libraries/Image/AssetRegistry
+}, 477, null, "KuoZhanDemo/Image/极密盾加密/seachcopy.png");
 __d(/* KuoZhanDemo/Image/极密盾加密/Oval 4 Copy.png */function(global, require, module, exports) {module.exports = require(276                                         ).registerAsset({"__packager_asset":true,"httpServerLocation":"/assets/Image/极密盾加密","width":10,"height":10,"scales":[1,2,3],"hash":"b5de380f3d5223cd195f817dd938f8cf","name":"Oval 4 Copy","type":"png"}); // 276 = react-native/Libraries/Image/AssetRegistry
 }, 472, null, "KuoZhanDemo/Image/极密盾加密/Oval 4 Copy.png");
 __d(/* KuoZhanDemo/Image/极密盾加密/Oval 4.png */function(global, require, module, exports) {module.exports = require(276                                         ).registerAsset({"__packager_asset":true,"httpServerLocation":"/assets/Image/极密盾加密","width":10,"height":10,"scales":[2,3],"hash":"7e1700b34fb927a0632fd45ef2851d85","name":"Oval 4","type":"png"}); // 276 = react-native/Libraries/Image/AssetRegistry
 }, 473, null, "KuoZhanDemo/Image/极密盾加密/Oval 4.png");
-__d(/* KuoZhanDemo/Image/极密盾加密/TagIcon.png */function(global, require, module, exports) {module.exports = require(276                                         ).registerAsset({"__packager_asset":true,"httpServerLocation":"/assets/Image/极密盾加密","width":18,"height":30,"scales":[1,2,3],"hash":"e2c4f603f71b52b533924ab52cbda104","name":"TagIcon","type":"png"}); // 276 = react-native/Libraries/Image/AssetRegistry
+__d(/* KuoZhanDemo/Image/极密盾加密/TagIcon.png */function(global, require, module, exports) {module.exports = require(276                                         ).registerAsset({"__packager_asset":true,"httpServerLocation":"/assets/Image/极密盾加密","width":18,"height":30,"scales":[1,2,3],"hash":"33d586a7dd1f4bf3ff4fa76155c1aa36","name":"TagIcon","type":"png"}); // 276 = react-native/Libraries/Image/AssetRegistry
 }, 474, null, "KuoZhanDemo/Image/极密盾加密/TagIcon.png");
 ;require(126);
 ;require(0);
