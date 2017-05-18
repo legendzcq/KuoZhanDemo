@@ -148,11 +148,16 @@ class ListViewPagingExample extends React.Component {
 
   renderSectionHeader = (sectionData: string, sectionID: string) => {
     return (
+    <TouchableOpacity onPress={() => {
+         alert(sectionData);
+              
+          }}>
       <View style={styles.section}>
         <Text style={styles.text}>
           {sectionData}--{sectionID}
         </Text>
       </View>
+      </TouchableOpacity>
     );
   };
 
