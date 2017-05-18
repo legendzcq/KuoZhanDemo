@@ -170,10 +170,10 @@ export default class CabBleView extends Component {
       let ImageLeft = (Dimen.window.width / showClassNameNum - 32)/2;
       return (
           <TouchableOpacity onPress={() => {
-              NativeModules.ParamsProviderModule.ClassNameClick(rowData).then(result => {
+              {/*NativeModules.ParamsProviderModule.ClassNameClick(rowData).then(result => {
               }, error => {  
                });
-              
+              */}
           }}>
       <View style={styles.CellType}>
               <Image source={otherIconArrayIphone[rowID]} style={{width:32,height:31,marginTop:15,marginLeft:ImageLeft}} />

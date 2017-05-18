@@ -151,9 +151,9 @@ export default class CabIphoneView extends Component {
       let ImageLeft = (Dimen.window.width / showClassNameNum - 32)/2;
       return (
           <TouchableOpacity onPress={() => {
-              NativeModules.ParamsProviderModule.ClassNameClick(rowData).then(result => {
+              {/*NativeModules.ParamsProviderModule.ClassNameClick(rowData).then(result => {
               }, error => {  
-               });
+               });*/}
               
           }}>
       <View style={styles.CellType}>
@@ -170,9 +170,9 @@ export default class CabIphoneView extends Component {
       let ImageLeft = (Dimen.window.width / showClassNameNum - 32)/2;
       return (
           <TouchableOpacity onPress={() => {
-              NativeModules.ParamsProviderModule.ClassNameClick(rowData).then(result => {
+              {/*NativeModules.ParamsProviderModule.ClassNameClick(rowData).then(result => {
               }, error => {  
-               });
+               });*/}
               
           }}>
       <View style={styles.CellType}>
@@ -190,9 +190,9 @@ export default class CabIphoneView extends Component {
       let ImageLeft = (Dimen.window.width / showClassNameNum - 32)/2;
       return (
           <TouchableOpacity onPress={() => {
-              NativeModules.ParamsProviderModule.ClassNameClick(rowData).then(result => {
+              {/*NativeModules.ParamsProviderModule.ClassNameClick(rowData).then(result => {
               }, error => {  
-               });
+               });*/}
               
           }}>
       <View style={styles.CellType}>

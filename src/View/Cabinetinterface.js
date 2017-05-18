@@ -37,12 +37,12 @@ export default class Cabinetinterface extends Component {
       currentPage:0,
      }
 
-    NativeModules.ParamsProviderModule.initShowValue()
-        .then(param => {
+    // NativeModules.ParamsProviderModule.initShowValue()
+    //     .then(param => {
 
-            this.setState({ClassDataNumArray:param});    
+    //         this.setState({ClassDataNumArray:param});    
                
-         });  
+    //      });  
        
    }
 
