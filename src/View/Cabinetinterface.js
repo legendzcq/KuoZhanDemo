@@ -14,8 +14,9 @@ import {
 } from 'react-native';
 import Dimen from './../utils/dimission';
 import { toastShort } from '../utils/ToastUtil';
-import CabIphoneView from './CabIphoneView'
-import CabBleView from './CabBleView'
+import CabIphoneView from './CabIphoneView';
+import CabBleView from './CabBleView';
+import BtnView from './BtnView';
 
 let CabPageNum = 5;
 var isopen = 'open';
@@ -150,38 +151,14 @@ class TagLineView extends Component {
         
         return (
         <View style={{backgroundColor:'white',height:40,marginTop:0,marginLeft:0,marginRight:0,flexDirection:'row'}}>
-                <View style={this.props.ViewStyle}></View>
+        <View style={this.props.ViewStyle}></View>
           <Text style={{ fontSize: 14, color: '#777777', textAlign: 'left', marginTop: 12, marginLeft: 5 }}>{this.props.titleName}</Text>    
         </View>
         );
     }
 }
 
-class BtnView extends Component {
-   constructor(props)
-   {
-     super(props);
-     this.state={
-      BtnClickBackFunc:null,
-     }
-   }
-    render() {
-        
-        return (
-        <View>
-                <TouchableOpacity activeOpacity={0.6} onPress={this.BtnClickBackFunc.bind(this)} style={this.props.Touchstyle} >
-       <Image source={this.props.iconName} style={{width:18,height:18}}/>
-        </TouchableOpacity>
-        </View>
-        );
-    }
-        //回调函数 1：返回值  2：calssID  3：正则pi
-    BtnClickBackFunc()
-    {
-        if(this.props.BtnClickBackFunc == null) return;
-        this.props.BtnClickBackFunc();
-    }
-}
+
 
 
 var styles = StyleSheet.create({
