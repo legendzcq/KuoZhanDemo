@@ -27,9 +27,11 @@ import {
   TouchableOpacity,
   TextInput,
   Image,
+  Button,
 } from 'react-native';
 var NUM_SECTIONS = 10;
 var NUM_ROWS_PER_SECTION = 10;
+let cellNums = 4;
 
     var dataBlob = {};
     var sectionIDs = [];
@@ -72,7 +74,8 @@ var ds = new ListView.DataSource({
 
     this.state = {
       IsShow:false,
-      isOneHang:true,
+      isOneHang: true,
+      isEditCell:false,
       dataSource: ds.cloneWithRowsAndSections({}, [], []),
     };
   }
@@ -122,7 +125,7 @@ var ds = new ListView.DataSource({
     for (var ii = 0; ii < NUM_SECTIONS; ii++) {
       var tempSection = new Object();
       
-      var sectionName = 'SectionLeee' + ii;
+      var sectionName = 'SectionLeee ' + ii;
       tempSection.title = sectionName;
       if ( selectedSectionData != null && selectedSectionData.title == sectionName  ) {
        tempSection.isOpen = selectedSectionData.isOpen;
@@ -166,26 +169,30 @@ var ds = new ListView.DataSource({
    
    var tempStyle = this.state.isOneHang ?styles.ListViewTypeV :styles.ListViewTypeH;
     return (
-      <View style={{ backgroundColor: 'rgb(240, 239, 243)', flex: 1 }}>
+      <View style={{ backgroundColor: 'rgb(240, 239, 243)', flex: 1,top:20 }}>
         <SeachView ChangeThremeClickBackFunc={() => {
           var tempOne = this.state.isOneHang;
           this.setState({ isOneHang: !tempOne });
         }}
           EditClickBackFunc={() => {
-            
-          }}/>
 
-          <ListView style={{ backgroundColor: 'rgb(233,233,233)' }}
+            var tempisEditCell = !this.state.isEditCell;
+            this.setState({isEditCell:tempisEditCell});
+          }}
+          DidSelectClickBackFunc={() => { 
+     
+          }}
+        />
+
+          <ListView style={{ backgroundColor: 'white' }}
             dataSource={this.state.dataSource}
             renderRow={this._renderRow.bind(this)}
             contentContainerStyle={tempStyle}
             renderSectionHeader={this.renderSectionHeader}
-            initialListSize={10}
-            pageSize={4}
-            scrollRenderAheadDistance={500}
-            stickySectionHeadersEnabled={true}
+            removeClippedSubviews={false}
+            initialListSize={10000}  
         />    
-      </View>
+       </View>
     );
 
   }  
@@ -195,32 +202,37 @@ var ds = new ListView.DataSource({
     this.setState({isOneHang:!tempOne});
  }
  renderSectionHeader = (sectionData, sectionID) => {
-   var tempImageSource = sectionData.isOpen ? require('./../../Image/极密盾加密/常用账户-橙.png') : require('./../../Image/手机加密/常用账户-青.png');
-   var tempTextColor = sectionData.isOpen ? '#333333':'#2aa5a9';
+   var tempImageSource;
+   if (sectionData.isOpen) {
+     if (this.state.isEditCell) {
+       tempImageSource = require('./../../Image/手机加密/收起-灰.png');
+     } else { 
+       tempImageSource = require('./../../Image/手机加密/收起-绿.png');
+     } 
+     
+   } else {
+      tempImageSource = require('./../../Image/手机加密/展开-灰.png');
+   }
+   var tempTextColor = sectionData.isOpen ? '#2aa5a9':'#333333';
    return (
       <TouchableOpacity onPress={() => {
         var tempSectionData = sectionData;
         tempSectionData.isOpen = !tempSectionData.isOpen;
-        this.RefreshData(tempSectionData, null);}}>
-        <View style={{width: Dimen.window.width,height: 40,backgroundColor: 'rgb(243,242,242)',flexDirection:'row',alignItems:'center'}}>
-       <Image source={tempImageSource} style={{ height: 15, width: 15 ,marginLeft:10}} />  
+        this.RefreshData(tempSectionData, null);
+     }}>
+        <View style={{backgroundColor:'rgb(243,243,243)',height:5,width:Dimen.window.width}} />  
+        <View style={{width: Dimen.window.width,height: 40,backgroundColor: 'white',flexDirection:'row',alignItems:'center',overflow:'hidden'}}>
+       <Image source={tempImageSource} style={{ height: 5, width: 6 ,marginLeft:10}} />  
        <Text style={{marginLeft:10,fontSize:14,color: tempTextColor,textAlign:'left'}}>{sectionData.title}</Text>
         </View>
-        <View style={{backgroundColor:'rgb(233,233,233)',height:5,width:Dimen.window.width}} />  
+        <View style={{marginLeft:0,marginRight:0,marginBottom:0,height:1,backgroundColor:'#e9e9e9'}}/>
       </TouchableOpacity>
     );
  };
   
 
-
-
-  _renderRow(rowData, sectionID, rowID) {
-    var temprowData: ListViewCellModel = rowData;
-    var tempTextType = temprowData.isSelected ? styles.TextSelectedType : styles.TextNomalType;
-    if (temprowData.isShow) {
-    return (
-      <TouchableOpacity onPress={
-        () => {
+ didCellClick =(rowData,sectionID)=>{
+         var temprowData: ListViewCellModel = rowData;
           var index = didSlectItemArray.indexOf(rowData.title);
           if (index > -1) {
             didSlectItemArray.splice(index, 1);
@@ -229,12 +241,17 @@ var ds = new ListView.DataSource({
           }
          temprowData.isSelected = !rowData.isSelected;
          var abc: ListViewSectionModel = dataBlob[sectionID];
+      
          this.RefreshData(abc, temprowData);
-         }
-      }>
-        {temprowData.isSelected ?<CellSignView rowData={temprowData} /> :<CellMultiView rowData={temprowData} />}
-        
+ }
 
+  _renderRow(rowData, sectionID, rowID) {
+    var temprowData: ListViewCellModel = rowData;
+    if (temprowData.isShow) {
+    return (
+      <TouchableOpacity onPress={this.didCellClick.bind(this,rowData,sectionID)}>
+        {this.state.isOneHang ? <CellSignView rowData={temprowData} isEditCell={this.state.isEditCell} isSelected={temprowData.isSelected}/> :
+          <CellMultiView rowData={temprowData} isEditCell={this.state.isEditCell} isSelected={temprowData.isSelected}/>}
       </TouchableOpacity>
     );
     }
@@ -255,7 +272,7 @@ var styles = StyleSheet.create({
   ListViewTypeH: {
    // 主轴方向
     flexDirection:'row',
-            // 换行
+  // 换行
     flexWrap:'wrap'
   },
  ListViewTypeV: {
@@ -288,18 +305,7 @@ var styles = StyleSheet.create({
     height: 40,
     backgroundColor: 'rgb(243,242,242)',
   },
-  Touchstyle: {
-    height: 44,
-    width:44,
-  },
-  TextSelectedType: {
-    fontSize: 16,
-    color:'blue',
-  },
-  TextNomalType: {
-    fontSize: 16,
-    color:'black',
-  },
+
 
 
 });
@@ -309,20 +315,25 @@ class SeachView extends Component {
     super(props);
     this.state = {
       EditClickBackFunc: null,
-      ChangeThremeClickBackFunc:null,
+      ChangeThremeClickBackFunc: null,
+      DidSelectClickBackFunc:null,
     }
   }
   render() { 
     return (
 
-      <View style={{width:Dimen.window.width,height:44,flexDirection:'row',justifyContent:'space-between',marginBottom:10}}>
-        <BtnView Touchstyle={[styles.Touchstyle, { marginLeft: 5, marginTop: 13 }]}
-          iconName={require('./../../Image/极密盾加密/DevListIcon.png')}
-          BtnClickBackFunc={this.ChangeThremeClickBackFunc.bind(this)}/>
-        <TextInput placeholder='搜索' style={{ width: 200, height: 44 }} />
-        <BtnView Touchstyle={[styles.Touchstyle, { marginRight: 5, marginTop: 13 }]}
-          iconName={require('./../../Image/极密盾加密/seachcopy.png')}
-        BtnClickBackFunc={this.EditClickBackFunc.bind(this)}/>
+      <View style={{width:Dimen.window.width,height:40,flexDirection:'row',justifyContent:'flex-start'}}>
+        <TouchableOpacity activeOpacity={0.6} onPress={this.ChangeThremeClickBackFunc.bind(this)}
+          style={{width:40,height:40}} >
+       <Image source={require('./../../Image/手机加密/缩略图.png')} style={{width:20,height:20,marginLeft:10,marginTop:10}}/>
+        </TouchableOpacity>
+        <TouchableOpacity activeOpacity={0.6} onPress={this.DidSelectClickBackFunc.bind(this)} >
+        <View style={{ width: Dimen.window.width-100, height: 30,flexDirection:'row',justifyContent:'center',alignContent:'center',flex:1,  backgroundColor: 'rgb(233,233,233)', borderRadius: 5 ,marginTop: 5}}>
+          <Image source={require('./../../Image/手机加密/搜索icon.png')} style={{ width: 18, height: 18,marginTop:4 }} />
+          <Text style={{fontSize:14,color:'#d2d2d2',textAlign:'left',marginTop:7,marginLeft:2}}>搜索</Text> 
+          </View>
+         </TouchableOpacity>  
+        <Button title='编辑' color='rgb(50,165,168)' onPress={this.EditClickBackFunc.bind(this)} style={{ width:44,height:40, marginRight: 5, marginTop: 15 }}/>
       </View>
 
     );
@@ -337,55 +348,82 @@ class SeachView extends Component {
         if(this.props.ChangeThremeClickBackFunc == null) return;
         this.props.ChangeThremeClickBackFunc();
   }
+    DidSelectClickBackFunc()
+  { 
+        if(this.props.DidSelectClickBackFunc == null) return;
+        this.props.DidSelectClickBackFunc();
+  }
+  
 
 }
 
 class CellMultiView extends Component { 
   render() { 
-    return(
-      <View style={{ height: 70, width: 110, margin: 7, backgroundColor: 'white' }}>
-        <View style={{flexDirection:'row'}}> 
-        <Image source={require('./../../Image/手机加密/常用账户-青.png')} style={{height: 40,width: 40,marginTop: 5, marginBottom: 5,
-          marginLeft: 35
-        }} />
-       <Image source={require('./../../Image/手机加密/选择-青.png')} style={{height: 16,width: 16,marginTop: 0, marginLeft: 19
-          }} />
-       </View>
-        <View style={{height: 20,width: 110,marginBottom: 0,backgroundColor: 'rgb(49,161,164)',alignItems:'center'}}>
-          <Text style={{color: 'white'}}>
-              {this.props.rowData.title}
-            </Text>
-            </View>
+    var tempselectImage = this.props.isSelected ? require('./../../Image/手机加密/选择-青.png') :require('./../../Image/极密盾加密/未选择.png')
+    var tempbackColor;
+    if (this.props.isSelected == false && this.props.isEditCell) {
+      tempbackColor = '#cccccc';
+    } else  {
+      tempbackColor = '#5fc2c5';
+    } 
+    return (
+      <View style={{ height: 81, width: Dimen.window.width/4, backgroundColor: 'white',marginTop:2 }}>
+        <View style={{flexDirection:'row'}}>
+          <View style={{marginLeft:30, width:40,height:40,backgroundColor:tempbackColor,justifyContent:'center',alignContent:'center',borderRadius:10}}>
+        <Image source={require('./../../Image/邮件24.png')} style={{height: 24,width: 24,marginLeft:8}} />
           </View>
+          {this.props.isEditCell ? <Image source={tempselectImage} style={{ height: 16, width: 16, marginTop: 0, marginLeft: 5 }} /> : <View />} 
+        </View>
+        <Text style={{ fontSize: 13, color: '#cccccc', textAlign: 'center',marginLeft:1,marginRight:10,marginTop:3 }}
+          textAlign='center' >
+              一二三四五 六七
+        </Text>
+</View>
     );
 
   }
 }
 class CellSignView extends Component { 
   render() { 
+    var tempselectImage = this.props.isSelected ? require('./../../Image/手机加密/选择-青.png') :require('./../../Image/极密盾加密/未选择.png')
+    var tempbackColor;
+    if (this.props.isSelected == false && this.props.isEditCell) {
+      tempbackColor = '#cccccc';
+    } else  {
+      tempbackColor = '#5fc2c5';
+    } 
     return(
-      <View style={{ flexDirection:'row',height: 80, width: Dimen.window.width, marginBottom: 10, backgroundColor: 'white' }}>
-        <View style={{width:80,height:80,backgroundColor:'#2aa5a9', justifyContent: 'center', alignItems:'center'}}> 
-          <Image source={require('./../../Image/极密盾加密/常用账户-橙.png')}
-            style={{height: 40, width: 40}} />
+      <View style={{ flexDirection:'row',height: 80, width: Dimen.window.width, marginBottom: 10, backgroundColor: 'white'}}>
+        <View style={{width:60,height:60,backgroundColor:tempbackColor, justifyContent: 'center', alignItems:'center',borderRadius:10,marginTop:12,marginLeft:10}}> 
+          <Image source={require('./../../Image/邮件32.png')}
+            style={{height: 32, width: 32}} />
         </View>
+        <View style={{flexDirection:"column"}}>
         <View style={{backgroundColor: 'white',flexDirection:'row'}}> 
           <View style={{backgroundColor: 'white',flexDirection:'column',width:Dimen.window.width-116}}>
             <Text style={{ fontSize: 20, color: '#2aa5a9', textAlign: 'left',marginTop:6,marginLeft:10 }}>新浪微博</Text>
             <Text style={{ fontSize: 12, color: '#999999', textAlign: 'left',marginTop:9,marginLeft:10 }}>jimidun@jimidun.com copy 5</Text>
             <Text style={{ fontSize: 12, color: '#999999', textAlign: 'left' ,marginTop:6,marginLeft:10}}>这里是描述信息或者其他信息 copy</Text>
-          </View>
-          <View style={{ backgroundColor: 'white', flexDirection: 'column', width: 36 }}>
+        
+            </View>
+          {!this.props.isEditCell ?
+            <View style={{ backgroundColor: 'white', flexDirection: 'column', width: 36 }}>
             <View style={{ flexDirection: 'row' ,marginTop:40}}>
-            <Image source={require('./../../Image/极密盾加密/常用账户-橙.png')}
-                style={{ height: 15, width: 15 }} />
+            <Image source={require('./../../Image/极密盾加密/icon-附件.png')}
+                style={{ height: 16, width: 16 }} />
             <Text style={{ fontSize: 9, color: '#999999', textAlign: 'left' ,marginLeft:2,marginTop:5}}>3</Text>  
             </View>
-            <Text style={{ fontSize: 12, color: '#999999', textAlign: 'left' ,marginTop:10}}>今天</Text>
+            <Text style={{ fontSize: 12, color: '#999999', textAlign: 'left' ,marginTop:8}}>今天</Text>
+              </View>
+              :
+              <View style={{ backgroundColor: 'white', flexDirection: 'column', width: 36, justifyContent: 'center', alignItems: 'center' }}>
+              <Image source={tempselectImage} style={{ height: 16, width: 16, marginTop: 0, marginLeft: 5 }} />
+              </View>}  
+
           </View>
+              <View style={{marginLeft:0,marginRight:0,marginTop:10,height:1,backgroundColor:'#e9e9e9'}}/>  
         </View>
-        
-          </View>
+        </View>
     );
 
   }
