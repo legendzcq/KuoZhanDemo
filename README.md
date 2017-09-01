@@ -1,6 +1,6 @@
 # KuoZhanDemo
 RN 扩展程序代码
-```
+```cpp
  struct BSTreeNode
 {
  int m_nValue; // value of node
